@@ -1,0 +1,60 @@
+.mat-sidenav-container {
+    width: 100%;
+}
+
+.horizontal-stepper-wrapper,
+.vertical-stepper-wrapper {
+    width: 80%;
+    max-width: 800px;
+}
+
+.centersteep {
+    background-color: white;
+}
+
+.etiquetas {
+    font-weight: bold;
+    color: blue;
+    font-size: large;
+}
+
+.mat-form-field {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-column {
+    Word-wrap: break-Word !important;
+    white-space: unset !important;
+    flex: 0 0 17% !important;
+    width: 17% !important;
+    overflow-wrap: break-Word;
+    Word-wrap: break-Word;
+    Word-break: break-Word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.img-default,
+.img-default1,
+.img-default2,
+.img-default3,
+.img-default4 {
+    background-image: url('https://cdn0.iconfinder.com/data/icons/interface-10/128/_add_image-512.png');
+    max-height: 5em;
+    max-width: 8em;
+    height: 5em;
+    width: 8em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    cursor: pointer;
+}

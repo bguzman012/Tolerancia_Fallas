@@ -1,0 +1,38 @@
+.mat-sidenav-container{
+    width: 100%;
+    
+}
+.horizontal-stepper-wrapper,
+.vertical-stepper-wrapper {
+    width: 80%;
+    max-width: 800px;
+
+}
+.centersteep{
+   background-color: white;
+
+
+}.etiquetas{
+    font-weight: bold;
+    color: blue;
+    font-size: large;
+}
+table {
+    width: 100%;
+  }
+  .mat-column {
+    Word-wrap: break-Word !important;
+    white-space: unset !important;
+    flex: 0 0 17% !important;
+    width: 17% !important;
+    overflow-wrap: break-Word;
+    Word-wrap: break-Word;
+  
+    Word-break: break-Word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  

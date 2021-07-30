@@ -1,0 +1,120 @@
+{
+    "NAV": {
+        "WIDGET_CLASSIC": "Clásica",
+        "WIDGET_MODERN": "Moderna",
+        "EXTENSIONS": "Extensiones",
+        "HOME": "Casa",
+        "MORE": "Más",
+        "APPS": "Aplicaciones",
+        "EXTRA": "Extra",
+        "MAIN": {
+            "QUERY": "Consultor",
+            "TITLE": "Principal",
+            "DASHBOARDS": "Tablero",
+            "ADMIN": "Cobranzas",
+            "AGENT": "Agente",
+            "WIDGETS": "Widgets",
+            "METRICS": "Métrica",
+            "LAYOUTS": "Diseños"
+        },
+        "COMPONENTS": {
+            "TITLE": "Componentes",
+            "BASIC": "Basic Componentes",
+            "TABLES": "Mesas",
+            "GENERAL": "General",
+            "NAVIGATION": "Navegación",
+            "DATA_DISPLAY": "Visualización de datos",
+            "FEEDBACK": "Realimentación"
+        },
+        "FORMS": {
+            "TITLE": "Formas",
+            "BASIC_FORM": "Forma básica",
+            "ADVANCED_FORM": "Formulario avanzado",
+            "FILE_UPLOAD": "Subir archivo",
+            "ACOUNT_LIST": "Lista de Cuentas",
+            "ACOUNT_DETAIL": "Detalle de Cuentas",
+            "AGENT": "Crear Agente",
+            "PLANNING": "Planificación",
+            "LISTAGENT": "Lista Planificación",
+            "QUERYLIST": "Listar Cuentas",
+            "REPORT": "Reportes",
+            "REPMANAGEMENT": "Gestiones",
+            "REPORTMAN": "Reporte Gerencial",
+            "ASSIGNVOUCHER": "Asignar recibos agente",
+            "CLIENT": "Clientes",
+            "PRODUCT": "Productos / Servicios",
+            "ISSUEPOINT": "Puntos de Emisión",
+            "ADMINFACT": "Administración",
+            "SUPPLIER": "Proveedores",
+            "USERS": "Usuarios",
+            "ASSIP": "Asignación de Puntos de Emisón",
+            "GENERATION": "Generación de Comprobantes",
+            "INVOICES": "Facturas",
+            "RETENTION": "Retención",
+            "CREDITNOTE": "Nota de Crédito",
+            "DEBITNOTE": "Nota de Débito",
+            "PURCHANSE": "Liquidación de Compra",
+            "REFERRAL": "Guía de Remisión",
+            "ASGAGENT": "Planificación por Agente"
+
+        },
+        "RISKS": {
+            "TITLE": "Analisis de Impactos",
+            "PROCESS": "Procesos",
+            "SUBPROCESS": "Subprocesos",
+            "IMPACTS": "Impactos",
+            "RISKS-ANALISYS": "Analisis de riesgos"
+
+        },
+        "SEGUIMIENTO": {
+            "TITLE": "Impacto Operativo",
+            "TRA-RISK": "Tratamiento de riesgos",
+            "SEG-RISK": "Seguimiento y comunicacion del riesgo",
+            "REPORTES": "Reportes",
+            "SEARCH": "Consultar",
+            "ADD-RIESGO": "Ingreso eventos de riesgo",
+            "ANA-RISKS": "Analisis y valoracion de riesgo"
+
+
+        },
+        "EXTRA_COMPONENTS": {
+            "TITLE": "Extra Componentes",
+            "EDITORS": "Editores",
+            "PICKERS": "Recolectores",
+            "SWEET_ALERTS": "Alertas dulces",
+            "NOTIFICATIONS": "Notificaciones"
+        },
+        "DATA_VISUALIZATION": {
+            "TITLE": "Visualización de datos",
+            "CHARTS": "Cartas",
+            "MAPS": "Mapas"
+        },
+        "PAGES": {
+            "TITLE": "Páginas",
+            "WALL_PAGE": "Página de pared",
+            "PROFILE_PAGE": "Página de perfil",
+            "LOGIN_PAGE": "Página de inicio de sesión",
+            "SIGN_UP_PAGE": "Página de registro",
+            "FORGOT_PASSWORD": "Se te olvidó tu contraseña",
+            "LOCK_SCREEN_PAGE": "Bloquear pantalla",
+            "BLANK_PAGE": "Página en blanco",
+            "SEARCH_PAGE": "Página de búsqueda",
+            "ERROR_404": "Error 400",
+            "ERROR_500": "Error 500"
+        },
+        "EXTRA_VIEWS": {
+            "TITLE": "Vistas extra",
+            "GRID": "Cuadrícula",
+            "LIST": "Lista"
+        },
+        "PREBUILT_APPS": {
+            "TITLE": "Aplicaciones pre-construidas",
+            "TASK_MANAGER": "Administrador de tareas",
+            "MAIL_APP": "Solicitud de correo",
+            "CONTACTS_APP": "Aplicación de contactos",
+            "CHAT_APP": "Aplicación de chat",
+            "WALL_APP": "Aplicación de pared",
+            "PROFILE_APP": "Aplicación de perfil"
+        }
+    }
+}

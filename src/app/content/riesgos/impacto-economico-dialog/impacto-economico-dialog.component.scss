@@ -1,0 +1,26 @@
+.error-message {
+    color: red;
+    font-size: inherit;
+}
+
+.text-danger-2 {
+    color: red;
+    font-size: small;
+}
+
+.text-danger {
+    color: red;
+}
+
+/deep/ .p-inputtext {
+    height: 46px;
+    color: black;
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-family: inherit;
+}
+
+/deep/ .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
+    font-size: initial;
+    font-family: inherit;
+}

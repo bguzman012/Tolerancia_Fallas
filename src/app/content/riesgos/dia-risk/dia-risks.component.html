@@ -1,0 +1,56 @@
+<div class="mat-sidenav-container">
+
+
+
+
+ 
+    <div class="centersteep">
+
+        <!-- HORIZONTAL STEPPER EXAMPLE -->
+        <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true">
+
+            <mat-step [stepControl]="horizontalStepperStep1">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep1">
+
+                    <ng-template matStepLabel>Completa esta información para culminar el evento</ng-template>
+                    <!--<label for="Ingresa una imagen o documento como respaldo"></label>
+                    <div fxFlex="1 0 auto" fxLayout="column">
+                      
+                        <div fxLayout="row">
+                            <label for="">Anexo Respaldo</label>
+                        </div>
+                        <div fxLayout="row">
+    
+                            <div [class]="'img-dow'" (click)="descargarImg1()"></div>
+                            <label>{{data.url}}</label>
+    
+                        </div>
+                              
+                    </div> 
+
+                    <div>
+                        <br>
+                        <br>
+                    </div>-->
+
+                    <mat-slide-toggle  formControlName="atiempo" >Habilita el interruptor si el evento se culminó a tiempo</mat-slide-toggle>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                      <!--   <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button> -->
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="guardar()">
+                            Finalizar evento
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+           
+
+        </mat-horizontal-stepper>
+
+    </div>
+</div>

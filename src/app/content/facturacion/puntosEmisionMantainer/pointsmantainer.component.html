@@ -1,0 +1,67 @@
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Nuevo Producto</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div>
+      <gx-card card-title="">
+        <form
+          [formGroup]="productForm"
+          (submit)="onSubmitForm()"
+          class="needs-validation"
+          novalidate
+        >
+          <div class="form-row">
+            <div class="col-sm-6 mb-3">
+              <label  for="email">Establecimiento</label>
+              <input
+                type="text"
+                class="form-control"
+                id="codigo"
+                placeholder="Ingresa un código"
+                name="codigo"
+                formControlName="codigo"
+                required
+              />
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label  for="email">Punto emisión</label>
+              <input
+                type="text"
+                class="form-control"
+                id="codigo_aux"
+                placeholder="Ingresa un código auxiliar"
+                name="codigo_aux"
+                formControlName="codigo_aux"
+                
+              />
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="col-sm-12 mb-3">
+                <label  for="email">Dirección</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="descripcion"
+                  placeholder="Ingresa una descripción"
+                  name="descripcion"
+                  formControlName="descripcion"
+                  required
+                />
+              </div>
+              
+            </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+        </form>
+      </gx-card>
+    </div>
+    

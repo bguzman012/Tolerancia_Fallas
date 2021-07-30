@@ -1,0 +1,115 @@
+<!-- Login Content -->
+<!-- MAO EDITADO -->
+<div class="dt-login__content-wrapper">
+
+  <!-- Header -->
+  <auth-header title="Inicio de sesión" desc="Inicia sesión con tu usuario y contraseña"></auth-header>
+  <!-- /header -->
+
+  <!-- Login Content Section -->
+  <div class="dt-login__content">
+    <!-- Login Content Inner -->
+
+    <div class="dt-login__content-inner">
+
+      <!-- Form -->
+      <form (ngSubmit)="onSubmitSignIn()" #signinForm="ngForm">
+
+        <!-- Form Group -->
+        <div class="form-group">
+          <label class="sr-only" for="email-1">Correo</label>
+          <input type="email"
+                 class="form-control"
+                 id="email-1"
+                 aria-describedby="emailHelp"
+                 placeholder="Usuario"
+                 [formControl]="email" required>
+        </div>
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <div class="form-group">
+          <label class="sr-only" for="password-1">Contraseña</label>
+          <input type="password"
+                 class="form-control"
+                 id="password-1"
+                 placeholder="Contraseña"
+                 [formControl]="password" required>
+        </div>
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <!-- <div class="dt-checkbox d-block mb-6">
+          <input type="checkbox" id="keepMeLoggedIn" [formControl]="keepMeLoggedIn">
+          <label class="dt-checkbox-content" for="keepMeLoggedIn">
+            by signing up, I accept <a href="javascript:void(0)">Term &amp; Condition</a>
+          </label>
+        </div> -->
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary text-uppercase">Iniciar sesión</button>
+           
+        </div>
+        <br>
+        <br>
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <div class="d-flex flex-wrap align-items-center">
+          <span class="d-inline-block ml-5"> 
+            <a class="d-inline-block mr-2" routerLink="/forgot">¿Olvidó su contraseña?</a>
+          </span> 
+        <!--   <span class="d-inline-block mr-2">Visita nuestras redes sociales</span> -->
+
+          <!-- List -->
+          <!-- <ul class="dt-list dt-list-sm dt-list-cm-0 ml-auto">
+            <li class="dt-list__item">
+           
+              <a href="javascript:void(0)" class="btn btn-outline-primary dt-fab-btn size-30">
+                <gx-icon name="facebook" size="xl"></gx-icon>
+              </a>
+             
+            </li>
+
+            <li class="dt-list__item">
+             
+              <a href="javascript:void(0)" class="btn btn-outline-primary dt-fab-btn size-30">
+                <gx-icon name="google-plus" size="xl"></gx-icon>
+              </a>
+              
+            </li>
+
+            <li class="dt-list__item">
+             
+              <a href="javascript:void(0)" class="btn btn-outline-primary dt-fab-btn size-30">
+                <gx-icon name="github" size="xl"></gx-icon>
+              </a>
+              
+            </li>
+
+            <li class="dt-list__item">
+             
+              <a href="javascript:void(0)" class="btn btn-outline-primary dt-fab-btn size-30">
+                <gx-icon name="twitter" size="xl"></gx-icon>
+              </a>
+              
+            </li>
+          </ul> -->
+          <!-- /list -->
+        </div>
+        <!-- /form group -->
+
+
+      </form>
+      <!-- /form -->
+
+    </div>
+    <!-- /login content inner -->
+
+  </div>
+  <!-- /login content section -->
+
+</div>
+<!-- /login content -->

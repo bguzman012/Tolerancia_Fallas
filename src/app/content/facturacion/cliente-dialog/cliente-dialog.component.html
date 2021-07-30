@@ -1,0 +1,119 @@
+<div class="modal-header">
+    <h4 *ngIf="!editar" class="modal-title" id="modal-basic-title">Nuevo Cliente</h4>
+
+    <h4 *ngIf="editar" class="modal-title" id="modal-basic-title">Editar Cliente</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+</div>
+<div>
+
+    <gx-card card-title="">
+
+        <form [formGroup]="personForm" class="needs-validation" (submit)="savePerson()" novalidate>
+            <div class="form-row">
+                <div class="col-sm-6 mb-3">
+                    <label for="name">Los campos marcados con (<span class="text-danger">*</span>) son
+                        obligatorios:</label>
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="col-sm-6 mb-3">
+                    <label for="name">Tipo Documento <span class="text-danger">*</span></label>
+
+                    <div class="action-container mr-5">
+                        <div class="btn-group mr-2 mb-2" ngbDropdown>
+                            <div class="input-group-prepend">
+                                <!--   <div class="input-group-text">
+                                  <input type="checkbox" aria-label="Checkbox for following text input" (click)="eventoCheck(1,$event)">
+                                </div> -->
+                            </div>
+                            <input class="form-control  border-1 shadow-none bg-focus" readonly rows="1" name="iTipoDocumento" id="validationCustom01" maxlength="1000" formControlName="iTipoDocumento" #iTipoDocumento placeholder="Seleccione" style="text-transform: uppercase;" required>
+                            <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+
+                            </button>
+
+                            <div ngbDropdownMenu>
+
+                                <div *ngFor="let item of tipos">
+                                    <a class="dropdown-item" (click)="eventotiAgente(item)">{{item.nombre}}</a>
+                                </div>
+                                <div class="dropdown-divider"></div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Numero Documento <span class="text-danger">*</span></label>
+
+                    <input formControlName="iDocumento" placeholder="Ej. 123456789" (change)="validadorDeCedula()" matInput class="form-control" required style="color: black;  height: 47px;" />
+                    <small *ngIf="!validador" class="error-message">Documento Invalido</small>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="form-row">
+
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Nombre <span class="text-danger">*</span></label>
+
+                    <input formControlName="iNombre" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)" matInput class="form-control" placeholder="Ej. Juan Mauricio" aria-label="Checkbox for following text input"
+                        required style="color: black;  height: 47px;" />
+
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Apellido <span class="text-danger">*</span></label>
+
+                    <input formControlName="iApellido" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)" matInput class="form-control" placeholder="Ej. Perez Calle" aria-label="Checkbox for following text input"
+                        required style="color: black;  height: 47px;" />
+
+                </div>
+
+
+
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Correo <span class="text-danger">*</span></label>
+
+                    <input formControlName="iCorreo" (change)="validarCorreo()" placeholder="Ej. user@ejemplo.com" matInput class="form-control" required style="color: black;  height: 47px;" />
+                    <small *ngIf="!validador_correo" class="error-message">Correo Invalido</small>
+
+                </div>
+
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Telefono </label>
+
+                    <input formControlName="iTelefono" (change)="validarNumeroTelefonico()" matInput class="form-control" placeholder="Ej. 0987865467" aria-label="Checkbox for following text input" style="color: black;  height: 47px;" />
+                    <small *ngIf="!validador_telefono" class="error-message">Numero Invalido</small>
+
+                </div>
+
+
+            </div>
+            <div class="form-row">
+
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Direccion</label>
+
+                    <input formControlName="iDireccion" placeholder="Ej. Av. Republica y Pradera" matInput class="form-control" style="color: black;  height: 47px;" />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button *ngIf="!editar" class="btn btn-primary" type="submit">Guardar Persona </button>
+                <button *ngIf="editar" class="btn btn-primary" type="submit">Editar Persona </button>
+            </div>
+        </form>
+    </gx-card>
+</div>

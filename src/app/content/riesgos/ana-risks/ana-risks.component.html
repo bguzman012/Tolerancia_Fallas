@@ -1,0 +1,541 @@
+<div class="mat-sidenav-container">
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header style="    background-color: rgb(219, 239, 225);">
+                <mat-panel-title>
+                    Detalle del Evento: {{datafromlocal.secuencia}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{datafromlocal.evento}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div class="column" style="background-color:white;">
+                    <label class="etiquetas">
+                Impacto:
+            </label>
+                    <h3> {{datafromlocal.ide_impacto.toLowerCase()}} </h3>
+                    <label class="etiquetas">
+                Probabilidad:
+            </label>
+                    <h3> {{datafromlocal.ide_probabilidad.toLowerCase()}} </h3>
+                    <label class="etiquetas">
+                Riesgo Inherente o riesgo puro
+            </label>
+                    <h3> {{datafromlocal.ide_riesgo}} </h3>
+
+                </div>
+
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+
+    <div class="centersteep">
+
+        <!-- HORIZONTAL STEPPER EXAMPLE -->
+        <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true">
+
+            <mat-step [stepControl]="horizontalStepperStep1">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep1">
+
+                    <ng-template matStepLabel>DE DONDE PROVIENE EL RIESGO</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>El factor de riesgo es: </mat-label>
+                            <mat-select [(value)]="selected" formControlName="tipor" required (selectionChange)="changefactor($event)">
+                                <mat-option *ngFor="let obj of factores" [value]="obj.idfactores">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>El tipo de riesgo es requerido!</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>La parte interesada es:</mat-label>
+                            <mat-select [(value)]="selected2" formControlName="interes" required (selectionChange)="changeParteInteresada($event)">
+                                <mat-option *ngFor="let obj of partesint" [value]="obj.idparteinteresada">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>La parte interesada es requerido!</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Este evento pertenece al proceso:</mat-label>
+                            <mat-select [(value)]="selectedpro" formControlName="proceso" required (selectionChange)="changeProceso($event)">
+                                <mat-option *ngFor="let obj of listproceso" [value]="obj.id_proceso">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>El proceso es requerido!</mat-error>
+                        </mat-form-field>
+
+
+
+
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <!--   <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button> -->
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Siguiente
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+            <mat-step [stepControl]="horizontalStepperStep2">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep2">
+
+                    <ng-template matStepLabel>TIPO DE EVENTO DE RIESGO</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>El riesgo es de tipo: </mat-label>
+                            <mat-select [(value)]="selected3" formControlName="tipori" required (selectionChange)="changetipoR($event)">
+                                <mat-option *ngFor="let obj of tiporiesgos" [value]="obj.idtiporiesgo">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>El tipo de riesgo es requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="muestratiporiesgo">
+                            <mat-label>Tipo de Riesgo Operativo: </mat-label>
+                            <mat-select [(value)]="selected4" formControlName="tiporio" (selectionChange)="changetipoRO($event)">
+                                <mat-option *ngFor="let obj of tiporiesgoop" [value]="obj.idtiporiesgo">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>El tipo de riesgo operativo es requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="muestratiporiesgodet">
+                            <mat-label>Detalle Operacional </mat-label>
+                            <mat-select [(value)]="selected5" formControlName="tiporiodet" (selectionChange)="changetipoROD($event)">
+                                <mat-option *ngFor="let obj of tiporiesgoopdet" [value]="obj.idtiporiesgo">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>El detalle operacional es requerido!</mat-error>
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="muestraact">
+                            <mat-label>Detalle Actividades </mat-label>
+                            <mat-select [(value)]="selected6" formControlName="listaact" (selectionChange)="changeact($event)">
+                                <mat-option *ngFor="let obj of listaactividades" [value]="obj.idtiporiesgo">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="muestraactdet">
+                            <mat-label>Detalle del detalle </mat-label>
+                            <mat-select [(value)]="selected7" formControlName="listaactdet" (selectionChange)="changeactdet($event)">
+                                <mat-option *ngFor="let obj of listaactividadesdet" [value]="obj.idtiporiesgo">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="muetsraline">
+                            <mat-label>La línea de negocio es: </mat-label>
+                            <mat-select [(value)]="selected15" formControlName="lineaneg" required (selectionChange)="changelinea($event)">
+                                <mat-option *ngFor="let obj of listaline" [value]="obj.id">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>La línea es requerida!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="muetsraline">
+                            <mat-label>El detalle de la línea de negocio es: </mat-label>
+                            <mat-select [(value)]="selected16" formControlName="lineanegdet" required (selectionChange)="changelineadet($event)">
+                                <mat-option *ngFor="let obj of detallelinea" [value]="obj.id">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>El detalle de linea es requerida!</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="cargadatos()">
+                            Siguiente
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+            <mat-step [stepControl]="horizontalStepperStep3">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep3">
+
+                    <ng-template matStepLabel>CONSECUENCIAS</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>El tipo de Control es: </mat-label>
+                            <mat-select [(value)]="selected8" formControlName="control" required (selectionChange)="changetipocontrol($event)">
+                                <mat-option *ngFor="let obj of listacontrol" [value]="obj.idtipocontrol">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>El tipo de control es requerido!</mat-error>
+
+                        </mat-form-field>
+                        <mat-form-field>
+                            <textarea matInput formControlName="descontrol" required placeholder="Aqui DIGITE una descripción de 250 caracteres del tipo de control."></textarea>
+                            <mat-error>La observación es requerida !</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>El tipo de documento es: </mat-label>
+                            <mat-select [(value)]="selected9" formControlName="docu" required (selectionChange)="changetipodocumento($event)">
+                                <mat-option *ngFor="let obj of listadocumentos" [value]="obj.iddocumentocontrol">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <textarea matInput formControlName="desdocument" required placeholder="Aqui DIGITE una descripción de 250 caracteres del tipo de DOCUMENTO."></textarea>
+                            <mat-error>La observación es requerida!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>La frecuencia es: </mat-label>
+                            <mat-select [(value)]="selected10" formControlName="frec" required (selectionChange)="changetipofrecuencia($event)">
+                                <mat-option *ngFor="let obj of listafrecuencia" [value]="obj.idfrecuencia">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <textarea matInput formControlName="desfrecuencia" required placeholder="Aqui DIGITE una descripción de 250 caracteres de la frecuencia."></textarea>
+                            <mat-error>La observación es requerida !</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Este evento genera perdida por: </mat-label>
+                            <mat-select [(value)]="selected17" formControlName="perdida" required (selectionChange)="changeperdida($event)">
+                                <mat-option *ngFor="let obj of perdida" [value]="obj.id">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>No ha especificado si el evento genera pérdida!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Valor de Pérdida: </mat-label>
+                            <input type="number" matInput formControlName="valperdida" placeholder="Ejemplo: 200" required>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <br>
+                        <br>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>Selecciona los anexos a los que pertenece</mat-label>
+
+                            <mat-select [(value)]="selected11" formControlName="anexos" required (selectionChange)="changeanexos($event)">
+                                <mat-option *ngFor="let obj of listanexosprin" [value]="obj.idanexoa" [ngStyle]="{'background-color': obj.color }">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <span [ngStyle]="{'background-color': color1, color:color1 }" class="material-icons">
+                                fiber_manual_record
+                            </span>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>Selecciona el detalle del anexo</mat-label>
+
+                            <mat-select [(value)]="selected11" formControlName="anexosdet" required (selectionChange)="changeanexosdet($event)">
+                                <mat-option *ngFor="let obj of listanexosprindet" [value]="obj.id_anexoa_detalle" [ngStyle]="{'background-color': obj.color }">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <span [ngStyle]="{'background-color': color1, color:color1 }" class="material-icons">
+                                fiber_manual_record
+                            </span>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+
+
+
+
+
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>Vulnerabilidades</mat-label>
+                            <textarea matInput formControlName="vulnerabilidades" required placeholder=""></textarea>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>Amenazas</mat-label>
+                            <textarea matInput formControlName="amenazas" required placeholder=""></textarea>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <br>
+
+
+
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>Selecciona el activo de información</mat-label>
+
+                            <mat-select [(value)]="selected19" formControlName="activoinfor" required (selectionChange)="changeactivo($event)">
+                                <mat-option *ngFor="let obj of listaactivos" [value]="obj.idactivo" [ngStyle]="{'background-color': obj.color }">
+                                    {{obj.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                            <span [ngStyle]="{'background-color': color1, color:color1 }" class="material-icons">
+                                fiber_manual_record
+                            </span>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+
+
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>Especifique el activo </mat-label>
+                            <textarea matInput formControlName="activoesp" required placeholder=""></textarea>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+
+                        <br>
+                        <br>
+
+
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>La confidencialidad es:</mat-label>
+
+                            <mat-select [(value)]="selected18" formControlName="confidencialidad" required (selectionChange)="changeConfidencialidad($event)">
+                                <mat-option *ngFor="let obj of listconfidencialidad" [value]="obj.idconfidencialidad" [ngStyle]="{'background-color': obj.color }">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <span [ngStyle]="{'background-color': color1, color:color1 }" class="material-icons">
+                                fiber_manual_record
+                            </span>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>La Integridad es:</mat-label>
+
+                            <mat-select [(value)]="selected12" formControlName="integridad" required (selectionChange)="changeIntegridad($event)">
+                                <mat-option *ngFor="let obj of listintegridad" [value]="obj.idintegridad" [ngStyle]="{'background-color': obj.color }">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <span [ngStyle]="{'background-color': color2, color:color2 }" class="material-icons">
+                                fiber_manual_record
+                            </span>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>La Disponibilidad es:</mat-label>
+
+                            <mat-select [(value)]="selected13" formControlName="disponibilidad" required (selectionChange)="changeDisponibilidad($event)">
+                                <mat-option *ngFor="let obj of listdisponibilidad" [value]="obj.iddisponibilidad" [ngStyle]="{'background-color': obj.color }">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <span [ngStyle]="{'background-color': color3, color:color3 }" class="material-icons">
+                                fiber_manual_record
+                            </span>
+                            <mat-error>Campo requerido!</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100" *ngIf="esRSI">
+                            <mat-label>El impacto calculado es:</mat-label>
+
+                            <mat-select [(value)]="idimpacto" formControlName="impacto" disabled>
+                                <mat-option *ngFor="let obj of listimpacto" [value]="obj.idimpacto" [ngStyle]="{'background-color': obj.color }">
+                                    {{obj.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <span [ngStyle]="{'background-color': color4, color:color4 }" class="material-icons">
+                                fiber_manual_record
+                            </span>
+
+                        </mat-form-field>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="cargadatos()">
+                            Siguiente
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+
+            <mat-step>
+                <form fxLayout="column" [formGroup]="horizontalStepperStep4">
+                    <ng-template matStepLabel>FINALIZAR</ng-template>
+
+                    <div class="cardInner">
+                        <div [style.grid-area]="'header'">
+                            <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center ">
+                                <h1 style="align-items: center;"> Resumen del Análisis</h1>
+                            </div>
+                        </div>
+                        <div [style.grid-area]="'side'">
+                            <label class="etiquetas">
+                        Factor de Riesgo:
+                    </label>
+                            <p>
+                                {{factorriesgo[0].nombre}}
+
+                            </p>
+                            <label class="etiquetas">
+                        Partes Interesadas:
+                    </label>
+
+                            <p>
+                                {{parteinteresada[0].nombre}}
+
+
+                            </p>
+                            <label class="etiquetas">
+                        Tipo de Riesgo:
+                    </label>
+
+                            <p>
+                                {{tipoderiesgo[0].nombre}}
+                            </p>
+                        </div>
+                        <div [style.grid-area]="'content'">
+
+                        </div>
+                        <div [style.grid-area]="'footer'">
+
+                        </div>
+                    </div>
+
+
+
+
+                    <!--  <button mat-raised-button type="button" color="accent" (click)="calculavalores">
+                        Calcular valores de Riesgo
+                    </button> -->
+
+                    <!--  <p>
+                        {{detalleriesgooperativo[0].nombre}}
+                    </p>
+                    <p>
+                        {{detalleriesgooperacional[0].nombre}}
+                    </p>
+                    <p>
+                        {{actividades[0].nombre}}
+                    </p>
+                    <p>
+                        {{detalleactividades[0].nombre}}
+                    </p> -->
+
+                    <label class="etiquetas">
+                        Detalles de Seguridad de la Información:
+                    </label>
+                    <!--  <p>
+                        {{anexos[0].descripcion}}
+                    </p> -->
+                    <p>
+                        {{descconf}}
+                    </p>
+                    <p>
+                        {{descint}}
+                    </p>
+                    <p>
+                        {{descimpacto}}
+                    </p>
+                    <label class="etiquetas">
+                        Riesgo de Control
+                    </label>
+                    <p>
+                        {{descriesgocontrol}}
+                    </p>
+                    <label class="etiquetas">
+                        Riesgo Residual
+                    </label>
+                    <p>
+                        {{descriegores}}
+                    </p>
+                    <label class="etiquetas" *ngIf="!esplan">
+                        NO REQUIERE PLAN DE ACCION
+                    </label>
+
+                    <label class="etiquetas" *ngIf="esplan">
+                        REQUIERE PLAN DE ACCION
+                    </label>
+
+                    <mat-form-field appearance="outline" fxFlex="100" *ngIf="esplan">
+                        <mat-label>La Estrategia a usar es:</mat-label>
+
+                        <mat-select [(value)]="selected13" formControlName="estrategias" required (selectionChange)="changeestrategias($event)">
+                            <mat-option *ngFor="let obj of estrategias" [value]="obj.id" [ngStyle]="{'background-color': obj.color }">
+                                {{obj.nombre}}
+                            </mat-option>
+                        </mat-select>
+
+                        <mat-error>Debe ingresar la probabilidad</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="100" *ngIf="mostrarproceso2">
+                        <mat-label>Seleccione el proceso :</mat-label>
+
+                        <mat-select [(value)]="selectedproceso2" formControlName="proceso2" required (selectionChange)="changeProceso2($event)">
+                            <mat-option *ngFor="let obj of listproceso" [value]="obj.id_proceso" [ngStyle]="{'background-color': obj.color }">
+                                {{obj.nombre}}
+                            </mat-option>
+                        </mat-select>
+
+                        <mat-error>Debe ingresar la probabilidad</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="100" *ngIf="esplan">
+                        <mat-label>La Decisión a usar es:</mat-label>
+
+                        <mat-select [(value)]="selected14" required formControlName="decisiones" required (selectionChange)="changedecisiones($event)">
+                            <mat-option *ngFor="let obj of decisiones" [value]="obj.id" [ngStyle]="{'background-color': obj.color }">
+                                {{obj.nombre}}
+                            </mat-option>
+                        </mat-select>
+
+                        <mat-error>Debe ingresar la probabilidad</mat-error>
+                    </mat-form-field>
+
+
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button>
+                        <button mat-raised-button type="button" color="accent" (click)="finishHorizontalStepper()">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+
+
+
+        </mat-horizontal-stepper>
+
+    </div>
+</div>

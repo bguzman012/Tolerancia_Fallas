@@ -1,0 +1,39 @@
+<!-- HEADER -->
+<app-header></app-header>
+<!-- / HEADER -->
+
+<!-- Site Content Wrapper -->
+<main class="dt-main">
+
+  <!-- NAVBAR -->
+  <app-navbar-vertical
+    [perfectScrollbar]="{wheelPropagation: !settings.navigationFixed}"
+    [disabled]="!settings.customScrollbars"></app-navbar-vertical>
+
+  <div
+    *ngIf="settings.activeNavDrawer"
+    class="dt-backdrop" (click)="onClickOverlay()"></div>
+  <!-- / NAVBAR -->
+
+  <!-- Site Content -->
+  <div class="dt-content-wrapper">
+
+    <!-- Site Content -->
+    <div class="dt-content">
+
+      <router-outlet></router-outlet>
+
+    </div>
+    <!-- /site content -->
+
+    <!-- FOOTER -->
+    <app-footer></app-footer>
+    <!-- / FOOTER -->
+
+  </div>
+  <!-- /Site Content Wrapper-->
+
+<!--   <app-customizer class="position-static"></app-customizer> -->
+
+</main>
+<!-- /site content -->

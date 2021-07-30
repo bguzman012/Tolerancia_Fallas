@@ -1,0 +1,23 @@
+.mat-sidenav-container {
+    width: 100%;
+}
+
+.horizontal-stepper-wrapper,
+.vertical-stepper-wrapper {
+    width: 80%;
+    max-width: 800px;
+}
+
+.centersteep {
+    background-color: white;
+}
+
+.etiquetas {
+    font-weight: bold;
+    color: blue;
+    font-size: large;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}

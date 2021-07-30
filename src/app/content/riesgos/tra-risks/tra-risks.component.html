@@ -1,0 +1,179 @@
+<div class="mat-sidenav-container" style="overflow-y: scroll !important;">
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header style="    background-color: rgb(219, 239, 225);">
+                <mat-panel-title>
+                    Detalle del Evento: {{eventoana.secuencia}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{eventoana.evento}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div class="column" style="background-color:white;">
+                    <label class="etiquetas">
+            Impacto:
+        </label>
+                    <h3> {{eventoana.desc_impacto}} </h3>
+                    <label class="etiquetas">
+            Probabilidad:
+        </label>
+                    <h3> {{eventoana.desc_probabilidad}} </h3>
+                    <label class="etiquetas">
+            Riesgo Inherente o riesgo puro
+        </label>
+                    <h3> {{eventoana.ide_riesgo}} </h3>
+
+                </div>
+                <div class="column" style="background-color:white;">
+
+                </div>
+
+                <div class="column" style="background-color:white;">
+                    <label class="etiquetas">
+            Estrategia a usar:
+        </label>
+                    <h3> {{eventoana.id_estrategia}} </h3>
+                    <label class="etiquetas">
+            Decisión:
+        </label>
+                    <h3> {{eventoana.id_decisiones_implementar}} - {{eventoana.nombre_decisiones_implementar}} </h3>
+
+
+                </div>
+
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="centersteep">
+
+        <!-- HORIZONTAL STEPPER EXAMPLE -->
+        <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true">
+
+
+            <mat-step [stepControl]="horizontalStepperStep1">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep1">
+
+                    <ng-template matStepLabel>ACCIONES</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+
+                        <div *ngFor="let field of fieldscon">
+
+                            <!-- <mat-form-field appearance="outline" fxFlex="25">
+                                <mat-label>Acción</mat-label>
+
+                                <input matInput formControlName="{{field.id}}" required>
+
+                               
+                            </mat-form-field> -->
+                            <mat-form-field style="width: 33%;" appearance="outline" fxFlex="33">
+                                <mat-label>Actividad</mat-label>
+
+                                <input matInput formControlName="{{field.id2}}">
+
+                            </mat-form-field>
+                            <mat-form-field style="width: 33%;" appearance="outline" fxFlex="33">
+                                <mat-label>Responsable de Ejecución</mat-label>
+
+                                <input matInput formControlName="{{field.id3}}">
+
+                            </mat-form-field>
+                            <!--  <mat-form-field appearance="outline" fxFlex="20" >
+                                <mat-label>Responable de aprobación</mat-label>
+
+                                <input matInput formControlName="{{field.id4}}" required >
+
+                            </mat-form-field> -->
+
+                            <mat-form-field style="width: 33%;" class="example-full-width" appearance="fill" fxFlex="34">
+                                <mat-label>Fecha Ejecución</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="{{field.id5}}">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+
+
+
+                        </div>
+
+
+                        <br>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button type="button" color="accent" (click)="agregacampo(3)">
+                            +
+                        </button>
+                        <button mat-raised-button type="button" color="accent" (click)="deletecausa(3)">
+                            -
+                        </button>
+                    </div>
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="guardar()">
+                            Guardar
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+
+            <!--  <mat-step [stepControl]="horizontalStepperStep5">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep5">
+
+                    <ng-template matStepLabel>FECHA DE CULMINACION DE LAS ACCIONES</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+                        
+                        <div *ngFor="let field of fields5">
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label>{{field.label}}</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="{{field.id}}">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+                                <mat-datepicker #picker></mat-datepicker>
+                              </mat-form-field>
+
+
+
+
+                        </div>
+                       
+
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            
+                        </div>
+                        <br>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="guardar()">
+                            Guardar
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step> -->
+
+
+
+
+
+
+        </mat-horizontal-stepper>
+
+
+    </div>

@@ -1,0 +1,62 @@
+<!-- Login Content -->
+<!-- MAO EDITADO -->
+<div class="dt-login__content-wrapper">
+
+  <!-- Header -->
+  <auth-header title="Empresa" desc="Selecciona la empresa que deseas administrar"></auth-header>
+  <!-- /header -->
+
+  <!-- Login Content Section -->
+  <div class="dt-login__content">
+    <!-- Login Content Inner -->
+
+    <div class="dt-login__content-inner">
+
+      <!-- Form -->
+      <form (ngSubmit)="onSubmitSignIn()" #signinForm="ngForm">
+
+        <!-- Form Group -->
+        <div class="form-group">
+          <label class="sr-only" for="email-1">Empresas</label>
+          <!-- DropDown -->
+          <div class="btn-group mr-2 mb-2" ngbDropdown>
+            <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+              {{selectedcompany}}
+            </button>
+            <div ngbDropdownMenu>
+              <div *ngFor="let item of companies">
+                <a class="dropdown-item" (click)="evento(item)">{{item.razon_social}}</a>
+              </div>
+              <div class="dropdown-divider"></div>
+            </div>
+          </div>
+          <!-- /DropDown -->
+
+        </div>
+        <!-- /form group -->
+
+
+        <!-- Form Group -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary text-uppercase">Ingresar</button>
+          <!-- <span class="d-inline-block ml-5">Or
+              <a class="d-inline-block font-weight-500 ml-3" routerLink="/signup">Create New Account</a>
+            </span> -->
+        </div>
+        <br>
+        <br>
+        <!-- /form group -->
+
+
+
+      </form>
+      <!-- /form -->
+
+    </div>
+    <!-- /login content inner -->
+
+  </div>
+  <!-- /login content section -->
+
+</div>
+<!-- /login content -->

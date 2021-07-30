@@ -1,0 +1,943 @@
+<!-- Grid -->
+<div class="row">
+    <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup name="radio_option2" [(ngModel)]="option3">
+        <label class="btn btn-outline-primary" ngbButtonLabel>
+      <input type="radio" ngbButton value="1" (click)="seleccionaPerson(1)"> {{(option3 == '1')? 'Titular' :
+      'Titular'}}
+    </label>
+        <label class="btn btn-outline-primary" ngbButtonLabel *ngIf="mostrarconyuge">
+      <input type="radio" ngbButton value="2" (click)="seleccionaPerson(2)"> {{(option3 == '2')? 'Conyuge' :
+      'Conyuge'}}
+    </label>
+
+        <label class="btn btn-outline-primary" ngbButtonLabel *ngIf="dataGeneral.dataCliente.garante[0]">
+      <input type="radio" ngbButton value="3" (click)="seleccionaPerson(3)"> {{(option3 == '3')? 'Garante 1' : 'Garante
+      1'}}
+    </label>
+        <label class="btn btn-outline-primary" ngbButtonLabel *ngIf="dataGeneral.dataCliente.garante[1]">
+      <input type="radio" ngbButton value="4" (click)="seleccionaPerson(4)"> {{(option3 == '4')? 'Garante 2' : 'Garante
+      2'}}
+    </label>
+
+    </div>
+    <div style="width: 100px;"></div>
+    <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup name="radio_option2" [(ngModel)]="option3">
+        <button class="btn btn-primary" type="submit" (click)="return()" *ngIf="mostrargestion"> << Regresar </button>
+
+    </div>
+    <gx-card card-title="Información básica">
+
+        <!-- Form -->
+        <form>
+            <div class="form-row">
+                <div class="col-sm-6 mb-12">
+                    <div class="input-group input-group-sm mb-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Identificación</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold;" value="{{data_cliente.identificacion}}" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-6 mb-12">
+                    <div class="input-group input-group-sm mb-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold;" value="{{data_cliente.apellido}} {{data_cliente.nombre}}" readonly>
+                    </div>
+                </div>
+
+            </div>
+            <gx-card card-title="Teléfonos / Direcciones">
+
+
+                <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup name="radio_option2" [(ngModel)]="option2">
+                    <label class="btn btn-outline-primary" ngbButtonLabel>
+            <input type="radio" ngbButton value="1" (click)="seleccionar(1)"> {{(option2 == '1')? 'Direcciones' :
+            'Direcciones'}}
+          </label>
+                    <label class="btn btn-outline-primary" ngbButtonLabel>
+            <input type="radio" ngbButton value="2" (click)="seleccionar(2)"> {{(option2 == '2')? 'Teléfonos' :
+            'Teléfonos'}}
+          </label>
+                    <label class="btn btn-outline-primary" ngbButtonLabel>
+            <input type="radio" ngbButton value="3" (click)="seleccionar(3)"> {{(option2 == '3')? 'Otros' : 'Otros'}}
+          </label>
+                </div>
+
+                <div class="form-row">
+                    <!-- Tables -->
+
+
+                    <div class="table-responsive" *ngIf="option2 == '1'">
+                        <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup name="radio_option2" [(ngModel)]="option2" *ngIf="mostrargestion">
+                            <label class="btn btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton value="1" (click)="nuevaDir(content10)"> Nueva Dirección
+              </label>
+
+
+                        </div>
+                        <p-table #dt1 [value]="direcciones_cliente" [lazy]="true" (onLazyLoad)="loadDirecciones($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading" [responsive]="false">
+                            <ng-template pTemplate="caption">
+                            </ng-template>
+                            <ng-template pTemplate="header">
+
+                                <tr>
+                                    <th>Tipo Dirección</th>
+                                    <th>Provincia</th>
+                                    <th>Ciudad</th>
+                                    <th>Parroquia</th>
+                                    <th>Dirección</th>
+                                    <th>Referencia</th>
+                                    <th>Acciones</th>
+                                    <!-- <th>Editar Dirección</th>
+                  <th>Ver Historial</th> -->
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dir>
+                                <tr>
+                                    <td>{{dir.tipo_direccion}}</td>
+                                    <td>{{dir.provincia}}</td>
+                                    <td>{{dir.ciudad}}</td>
+                                    <td>{{dir.parroquia}}</td>
+                                    <td> {{dir.calle_principal}}- {{dir.nro_casa}} - {{dir.calle_secundaria}}</td>                                  
+                                    <td>{{dir.referencia}}</td>
+
+                                    <td>
+                                        <!-- <button pButton pRipple icon="pi pi-map" class="p-button-rounded p-button-success p-mr-2"
+                      (click)="abrirMapa(content2,dir)"></button>
+                      <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                      (click)="editar(content3,dir)" *ngIf="mostrargestion"></button>
+                      <button pButton pRipple icon="pi pi-book" class="p-button-rounded p-button-success p-mr-2"
+                      (click)="historial(content4,dir)"></button> -->
+
+                                        <div class="action-btn-group">
+                                            <button class="btn btn-default text-danger dt-fab-btn" (click)="abrirMapa(content2,dir)" *ngIf="dir.tipo_direccion!='EMAIL'" placement="top" ngbPopover="Ver Mapa" triggers="mouseenter:mouseleave" popoverTitle="Acción:">
+                          <gx-icon name="maps" size="1x"></gx-icon>
+                        </button>
+                                            <button class="btn btn-default text-success dt-fab-btn" (click)="editar(content3,dir)" *ngIf="mostrargestion" placement="top" ngbPopover="Editar" triggers="mouseenter:mouseleave" popoverTitle="Acción:">
+                          <gx-icon name="editors" size="1x"></gx-icon>
+                        </button>
+                                            <button class="btn btn-default text-danger dt-fab-btn" (click)="historial(content4,dir)" placement="top" ngbPopover="Ver Historial" triggers="mouseenter:mouseleave" popoverTitle="Acción:">
+                          <gx-icon name="list-advance" size="1x"></gx-icon>
+                        </button>
+                                        </div>
+
+                                    </td>
+                                    <!-- <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                      (click)="editar(content3,dir)"></button>
+                  </td>
+                  <td>
+                    <button pButton pRipple icon="pi pi-book" class="p-button-rounded p-button-success p-mr-2"
+                      (click)="historial(content4,dir)"></button>
+                  </td> -->
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                    <!-- ESTA SECCION ES PARA LOS TELEFONOS -->
+                    <div class="table-responsive" *ngIf="option2 == '2'">
+                        <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup name="radio_option2" [(ngModel)]="option2" *ngIf="mostrargestion">
+
+                            <label class="btn btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton value="1" (click)="nuevoTel(content55)"> Nuevo Teléfono
+              </label>
+
+                        </div>
+                        <p-table #dt1 [value]="telefonos_cliente" [lazy]="true" (onLazyLoad)="loadTelefonos($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading">
+                            <ng-template pTemplate="caption">
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Tipo Teléfono</th>
+                                    <th>Número</th>
+                                    <th>Acción</th>
+
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dir>
+                                <tr>
+                                    <td>{{dir.tipo_telefono}}</td>
+                                    <td>{{dir.numero}}</td>
+                                    <td>
+                                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editartel(content5,dir)" *ngIf="mostrargestion"></button>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                    <div class="table-responsive" *ngIf="option2 == '3'">
+                        <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup name="radio_option2" [(ngModel)]="option2" *ngIf="mostrargestion">
+
+                            <label class="btn btn-outline-primary" ngbButtonLabel>
+                <input type="radio" ngbButton value="1" (click)="nuevaRef(content66)"> Nueva Referencia
+              </label>
+
+                        </div>
+                        <p-table #dt1 [value]="referencias_cliente" [lazy]="true" (onLazyLoad)="loadReferencias($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecordsref" [loading]="loading">
+                            <ng-template pTemplate="caption">
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Nombres</th>
+                                    <th>Número</th>
+
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-ref>
+                                <tr>
+                                    <td>{{ref.apellido}} {{ref.nombre}}</td>
+                                    <td>{{ref.telefono}}</td>
+                                    <td>
+                                        <button pButton pRipple icon="pi pi-phone" class="p-button-rounded p-button-success p-mr-2"></button>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+
+                <div class="form-row">
+
+
+                </div>
+            </gx-card>
+
+
+            <bs-card class="overflow-hidden" body-class="pt-0">
+                <!-- Card Header -->
+                <bs-card-header class="bg-transparent">
+                    <h3 class="card-title">Dividendos de la cuenta</h3>
+                    <!--           <h5 class="card-subtitle mb-0">Total: 10</h5>
+ -->
+                </bs-card-header>
+                <!-- /card header -->
+
+                <!-- Tables -->
+                <div class="table-responsive">
+                    <p-table #dt1 [value]="dividendos" [lazy]="true" (onLazyLoad)="loadDividendos($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading">
+                        <ng-template pTemplate="caption">
+
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Nro Dividendo</th>
+                                <th>Fecha Vencimiento</th>
+                                <th>Días Atraso</th>
+                                <th>Dias Atraso Cal</th>
+                                <th>Capital</th>
+                                <th>Int</th>
+                                <th>Int Mora</th>
+                                <th>Int Mora Cal</th>
+                                <th>Gastos Cob</th>
+                                <th>Seguro</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-dividendo>
+                            <tr>
+                                <td>{{dividendo.nro_dividendo}}</td>
+                                <td>{{dividendo.fecha_vencimiento}}</td>
+                                <td>{{dividendo.dias_atraso}}</td>
+                                <td>{{dividendo.dias_atraso_calculado}}</td>
+                                <td>{{dividendo.saldo_cuota}}</td>
+                                <td>{{dividendo.interes}}</td>
+                                <td>{{dividendo.interes_mora}}</td>
+                                <td>{{dividendo.interes_mora_calculado}}</td>
+                                <td>{{dividendo.seguro}}</td>
+                                <td>{{dividendo.gasto_cobranza}}</td>
+                                <td>{{dividendo.total}}</td>
+                                <td>{{dividendo.estado}}</td>
+
+
+                                <!--  <td>
+                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success p-mr-2" ></button>
+            </td> -->
+
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                <!-- /tables -->
+
+            </bs-card>
+
+
+            <bs-card class="overflow-hidden" body-class="pt-0">
+                <!-- Card Header -->
+                <bs-card-header class="bg-transparent">
+                    <h3 class="card-title">Lista de Gestiones</h3>
+                    <h5 class="card-subtitle mb-0">Total: {{totalGestiones}}</h5>
+
+                </bs-card-header>
+                <!-- /card header -->
+
+                <!-- Tables -->
+                <div class="table-responsive">
+                    <p-table #dt1 [value]="gestiones_cliente" [lazy]="true" (onLazyLoad)="loadGestiones($event)" [paginator]="true" [rows]="10" [totalRecords]="totalGestiones" [loading]="loading">
+                        <ng-template pTemplate="caption">
+
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Tipo Gestión</th>
+                                <th>Fecha Gestión</th>
+                                <!-- <th>Observación</th>
+                <th> Solución</th>
+                <th>Monto Cobrado</th> -->
+                                <th>Detalles</th>
+
+
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-gestion>
+                            <tr>
+                                <td>{{gestion.tipo_gestion}}</td>
+                                <td>{{gestion.fecha_gestion}}</td>
+                                <!--     <td>{{gestion.observacion}}</td>
+                <td>{{gestion.tipo_solucion}}</td>
+                <td>{{gestion.monto_solucion}}</td> -->
+
+                                <td>
+                                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success p-mr-2" (click)="openDetail(gestion)"></button>
+
+                                </td>
+
+                                <!--  <td>
+                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success p-mr-2" ></button>
+            </td> -->
+
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <button class="btn btn-primary" type="submit" (click)="open()" *ngIf="mostrargestion">Nueva Gestión </button>
+                </div>
+                <!-- /tables -->
+
+            </bs-card>
+
+
+
+
+        </form>
+        <!-- /form -->
+
+    </gx-card>
+
+</div>
+
+
+<!-- modal -->
+<ng-template #content2 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ubicación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+    <div class=" col-sm-12 mb-6 embed-responsive embed-responsive-21by9">
+      <agm-map class="embed-responsive-item border" [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+        [disableDefaultUI]="false" [zoomControl]="true" (mapClick)="mapClicked($event)">
+
+                <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" markerDraggable="false" (dragEnd)="markerDragEnd(m, $event)">
+
+                    <agm-info-window>
+                        <strong></strong>
+                    </agm-info-window>
+
+                </agm-marker>
+
+
+            </agm-map>
+        </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>
+<!-- MODAL2222 -->
+
+
+
+<ng-template #content3 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Dirección</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div >
+ 
+    <gx-card  card-title="">
+
+      <form [formGroup]="direccionForm" (submit)="onSubmitForm()"  class="needs-validation" novalidate>
+        <div class="form-row" *ngIf="mostrargeneral">
+          <div class="col-sm-4 mb-3">
+            <label for="validationDefault02">Provincia</label>
+            <ngb-alert  [dismissible]="false" style="max-width: 100px;" *ngIf="!id_provincia">Requerido</ngb-alert>
+
+            <div class="action-container mr-5">
+              <div class="btn-group mr-2 mb-2" ngbDropdown>
+                  <input class="form-control  border-1 shadow-none bg-focus" rows="1" name="iProvincia"
+                      id="validationCustom01" maxlength="1000" formControlName="iProvincia" #iProvincia
+                      placeholder="Seleccione" style="text-transform: uppercase;" required readonly>
+                  <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+
+                  </button>
+
+                                <div ngbDropdownMenu>
+                                    <div *ngFor="let item of listProvinias">
+                                        <a class="dropdown-item" (click)="eventoProvincia(item)">{{item.nombre}}</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3" *ngIf="mostrarcanton">
+                        <label for="validationDefault02">Cantón <ngb-alert  [dismissible]="false" style="max-width: 100px;" *ngIf="!id_ciudad">Requerido</ngb-alert>
+            </label>
+
+                        <div class="action-container mr-5">
+                            <div class="btn-group mr-2 mb-2" ngbDropdown>
+
+                                <input class="form-control  border-1 shadow-none bg-focus" rows="1" name="iCanton" id="validationCustom01" maxlength="1000" formControlName="iCanton" #iCanton placeholder="Seleccione" style="text-transform: uppercase;" required readonly>
+                                <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+
+                  </button>
+                                <div ngbDropdownMenu>
+                                    <div *ngFor="let item of listCantones">
+                                        <a class="dropdown-item" (click)="eventoCanton(item)">{{item.nombre}}</a>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3" *ngIf="mostrarparroquia">
+                        <label for="validationDefault02">Parroquia <ngb-alert  [dismissible]="false" style="max-width: 100px;" *ngIf="!id_parroquia">Requerido</ngb-alert> </label>
+                        <div class="action-container mr-5">
+                            <div class="btn-group mr-2 mb-2" ngbDropdown>
+                                <!--                         <input  formControlName="iTipoGestion"  id="validationCustom02" class="form-control" value="{{selectedTipoGestion?selectedTipoGestion:''}}" readonly required #iTipoGestion />
+-->
+                                <input class="form-control  border-1 shadow-none bg-focus" rows="1" name="iParroquia" id="validationCustom01" maxlength="1000" formControlName="iParroquia" #iParroquia placeholder="Seleccione" style="text-transform: uppercase;" required readonly>
+                                <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+
+                  </button>
+                                <div ngbDropdownMenu>
+                                    <div *ngFor="let item of listParroquias">
+                                        <a class="dropdown-item" (click)="eventoParroquia(item)">{{item.nombre}}</a>
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostrargeneral">
+                    <div class="col-sm-4 mb-3">
+                        <label for="validationDefault02">Calle principal *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="callep" id="validationCustom004" maxlength="200" formControlName="callep" #callep required placeholder="Av loja"></textarea>
+                        <span>{{callep.value.length}} / 200</span>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label for="validationDefault02">Calle secundaria *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="callesec" id="validationCustom05" maxlength="200" formControlName="callesec" #callesec required placeholder="Av loja"></textarea>
+                        <span>{{callesec.value.length}} / 200</span>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label for="validationDefault02">Número casa *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="ncasa" id="validationCustom006" maxlength="10" formControlName="ncasa" #ncasa required placeholder="S/N"></textarea>
+                        <span>{{ncasa.value.length}} / 10</span>
+                    </div>
+                </div>
+
+                <div class="form-row" *ngIf="mostrartrabajo">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Empresa *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="empresa" id="validationCustom010" maxlength="1000" formControlName="empresa" #empresa required></textarea>
+                        <span>{{empresa.value.length}} / 1000</span>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostrargeneral">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Referencia *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="referencia" id="validationCustom010" maxlength="1000" formControlName="referencia" #referencia required></textarea>
+                        <span>{{referencia.value.length}} / 1000</span>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostraremail">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Email</label>
+
+                        <input class="form-control border-1 shadow-none bg-focus" type="email" rows="1" name="mail" id="validationCustom010" maxlength="100" formControlName="mail" #mail required>
+
+                        <span>{{mail.value.length}} / 100</span>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostrargeneral">
+                    <div class="col-sm-12 mb-3">
+
+                        <gx-media-icon-card label="Coordenadas">
+                            <gx-icon name="maps" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                            <p class="h5 mb-0" text>{{latitude}} / {{longitude}} </p>
+                        </gx-media-icon-card>
+                        <div class=" col-sm-12 mb-6 embed-responsive embed-responsive-21by9">
+                            <agm-map class="embed-responsive-item border" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" (mapClick)="mapClicked($event)">
+
+                                <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
+
+                                    <agm-info-window>
+                                        <strong>Ubicación</strong>
+                                    </agm-info-window>
+
+                                </agm-marker>
+
+
+                            </agm-map>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+        </gx-card>
+    </div>
+
+</ng-template>
+
+
+
+<ng-template #content10 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nueva Dirección</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div>
+        <gx-card card-title="">
+            <form [formGroup]="direccionForm" (submit)="SaveDir()" class="needs-validation" novalidate>
+                <div class="form-row">
+                    <label for="validationDefault02">Tipo Dirección</label>
+                    <ngb-alert [dismissible]="false" style="max-width: 100px;" *ngIf="!id_tipo_direccion">Requerido</ngb-alert>
+
+                    <div class="action-container mr-5">
+                        <div class="btn-group mr-2 mb-2" ngbDropdown>
+                            <input class="form-control  border-1 shadow-none bg-focus" rows="1" name="tipoDir" id="validationCustom01" maxlength="1000" formControlName="tipoDir" #tipoDir placeholder="Seleccione" style="text-transform: uppercase;" required readonly>
+                            <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+
+                  </button>
+
+                  <div ngbDropdownMenu>
+                    <input class="form-control  border-1 shadow-none bg-focus" >
+                      <div *ngFor="let item of listTipoDir">
+                          <a class="dropdown-item" (click)="eventoTipoDir(item)">{{item.nombre}}</a> 
+                      </div>
+
+                  </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+               
+
+                <div class="form-row" *ngIf="mostrargeneral">
+                    <div class="col-sm-4 mb-3">
+                        <label for="validationDefault02">Provincia</label>
+                        <ngb-alert [dismissible]="false" style="max-width: 100px;" *ngIf="!id_provincia">Requerido</ngb-alert>
+
+                        <div class="action-container mr-5">
+
+                            <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [ngModelOptions]="{standalone: true}" placeholder="Seleccione provincia" [suggestions]="filteredCountries" (onSelect)="onChange($event)" (completeMethod)="filterCountry($event)" field="nombre" [dropdown]="true">
+                                <ng-template let-country pTemplate="item">
+                                    <div class="country-item">
+
+                                        <div>{{country.nombre}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4 mb-3" *ngIf="mostrarcanton">
+                        <label for="validationDefault02">Cantón <ngb-alert  [dismissible]="false" style="max-width: 100px;" *ngIf="!id_ciudad">Requerido</ngb-alert>
+            </label>
+
+                        <div class="action-container mr-5">
+                            <p-autoComplete [(ngModel)]="selectedCountryAdvanced2" [ngModelOptions]="{standalone: true}" placeholder="Seleccione ciudad" [suggestions]="filteredCountries2" (onSelect)="onChange2($event)" (completeMethod)="filterCountry2($event)" field="nombre" [dropdown]="true">
+                                <ng-template let-country pTemplate="item">
+                                    <div class="country-item">
+
+                                        <div>{{country.nombre}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mb-3" *ngIf="mostrarparroquia">
+                        <label for="validationDefault02">Parroquia <ngb-alert  [dismissible]="false" style="max-width: 100px;" *ngIf="!id_parroquia">Requerido</ngb-alert> </label>
+                        <div class="action-container mr-5">
+                            <p-autoComplete [(ngModel)]="selectedCountryAdvanced3" [ngModelOptions]="{standalone: true}" placeholder="Seleccione parroquia" [suggestions]="filteredCountries3" (onSelect)="onChange3($event)" (completeMethod)="filterCountry3($event)" field="nombre"
+                                [dropdown]="true">
+                                <ng-template let-country pTemplate="item">
+                                    <div class="country-item">
+
+                                        <div>{{country.nombre}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostrargeneral">
+                    <div class="col-sm-4 mb-3">
+                        <label for="validationDefault02">Calle principal *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="callep" id="validationCustom004" maxlength="200" formControlName="callep" #callep required placeholder="Av loja"></textarea>
+                        <span>{{callep.value.length}} / 200</span>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label for="validationDefault02">Calle secundaria *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="callesec" id="validationCustom05" maxlength="200" formControlName="callesec" #callesec required placeholder="Av loja"></textarea>
+                        <span>{{callesec.value.length}} / 200</span>
+                    </div>
+                    <div class="col-sm-4 mb-3">
+                        <label for="validationDefault02">Número casa *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="ncasa" id="validationCustom006" maxlength="10" formControlName="ncasa" #ncasa required placeholder="S/N"></textarea>
+                        <span>{{ncasa.value.length}} / 10</span>
+                    </div>
+                </div>
+
+                <div class="form-row" *ngIf="mostrartrabajo">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Empresa *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="empresa" id="validationCustom010" maxlength="1000" formControlName="empresa" #empresa required></textarea>
+                        <span>{{empresa.value.length}} / 1000</span>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostrargeneral">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Referencia *</label>
+
+                        <textarea class="form-control  border-1 shadow-none bg-focus" rows="1" name="referencia" id="validationCustom010" maxlength="1000" formControlName="referencia" #referencia required></textarea>
+                        <span>{{referencia.value.length}} / 1000</span>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostraremail">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Email</label>
+
+                        <input class="form-control border-1 shadow-none bg-focus" type="email" rows="1" name="mail" id="validationCustom010" maxlength="100" formControlName="mail" #mail required>
+
+                        <span>{{mail.value.length}} / 100</span>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="mostrargeneral">
+                    <div class="col-sm-12 mb-3">
+
+                        <gx-media-icon-card label="Coordenadas">
+                            <gx-icon name="maps" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                            <p class="h5 mb-0" text>{{latitude}} / {{longitude}} </p>
+                        </gx-media-icon-card>
+                        <div class=" col-sm-12 mb-6 embed-responsive embed-responsive-21by9">
+                            <agm-map class="embed-responsive-item border" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" (mapClick)="mapClicked($event)">
+
+                                <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
+
+                                    <agm-info-window>
+                                        <strong>Ubicación</strong>
+                                    </agm-info-window>
+
+                                </agm-marker>
+
+
+                            </agm-map>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+        </gx-card>
+    </div>
+
+</ng-template>
+
+
+
+
+<ng-template #content4 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Historial de Direcciones</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div>
+        <gx-card card-title="">
+            <div class="table-responsive" *ngIf="option2 == '1'">
+                <p-table #dt1 [value]="history_dir" [lazy]="true" (onLazyLoad)="loadDirecciones2($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords2" [loading]="loading" [responsive]="false">
+                    <ng-template pTemplate="caption">
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Fecha modificación</th>
+                            <th>Tipo Dirección</th>
+                            <th>Provincia</th>
+                            <th>Ciudad</th>
+                            <th>Parroquia</th>
+                            <th>Dirección</th>
+                            <th>Referencia</th>
+                            <!-- <th>Editar Dirección</th>
+              <th>Ver Historial</th> -->
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-dir>
+                        <tr>
+                            <td>{{dir.fhasta}}</td>
+                            <td>{{dir.tipo_direccion}}</td>
+                            <td>{{dir.provincia}}</td>
+                            <td>{{dir.ciudad}}</td>
+                            <td>{{dir.parroquia}}</td>
+                            <td>{{dir.calle_principal}} {{dir. calle_secundaria}}</td>
+                            <td>{{dir.referencia}}</td>
+
+
+                            <!-- <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                  (click)="editar(content3,dir)"></button>
+              </td>
+              <td>
+                <button pButton pRipple icon="pi pi-book" class="p-button-rounded p-button-success p-mr-2"
+                  (click)="historial(content4,dir)"></button>
+              </td> -->
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <!-- ESTA SECCION ES PARA LOS TELEFONOS -->
+            <div class="table-responsive" *ngIf="option2 == '2'">
+                <p-table #dt1 [value]="telefonos_cliente" [lazy]="true" (onLazyLoad)="loadTelefonos($event)" [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading">
+                    <ng-template pTemplate="caption">
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Tipo Teléfono</th>
+                            <th>Número</th>
+                            <th>Llamar</th>
+
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-dir>
+                        <tr>
+                            <td>{{dir.tipo_telefono}}</td>
+                            <td>{{dir.numero}}</td>
+                            <td>
+                                <button pButton pRipple icon="pi pi-phone" class="p-button-rounded p-button-success p-mr-2"></button>
+                            </td>
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+
+
+
+
+        </gx-card>
+    </div>
+
+</ng-template>
+
+
+
+
+
+
+
+
+<ng-template #content5 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Editar Telefono</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div>
+        <gx-card card-title="">
+            <form [formGroup]="telefonoForm" (submit)="onSubmitForm2()" class="needs-validation" novalidate>
+
+
+
+
+
+                <div class="form-row">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Número</label>
+
+                        <input class="form-control border-1 shadow-none bg-focus" type="numero" rows="1" name="numero" id="validationCustom010" maxlength="20" formControlName="numero" #numero required>
+
+                        <span>{{numero.value.length}} / 20</span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+        </gx-card>
+    </div>
+
+</ng-template>
+
+
+
+<ng-template #content55 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nuevo Telefono</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div>
+        <gx-card card-title="">
+            <form [formGroup]="telefonoForm" (submit)="saVeTel()" class="needs-validation" novalidate>
+                <div class="form-row">
+                    <label for="validationDefault02">Tipo Teléfono</label>
+                    <ngb-alert [dismissible]="false" style="max-width: 100px;" *ngIf="!id_tipo_telefono">Requerido</ngb-alert>
+
+                    <div class="action-container mr-5">
+                        <div class="btn-group mr-2 mb-2" ngbDropdown>
+                            <input class="form-control  border-1 shadow-none bg-focus" rows="1" name="tipoTel" id="validationCustom01" maxlength="1000" formControlName="tipoTel" #tipoTel placeholder="Seleccione" style="text-transform: uppercase;" required readonly>
+                            <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+
+                  </button>
+
+                            <div ngbDropdownMenu>
+                                <div *ngFor="let item of listTipoTel">
+                                    <a class="dropdown-item" (click)="eventoTipoTel(item)">{{item.nombre}}</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-row">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Número</label>
+
+                        <input class="form-control border-1 shadow-none bg-focus" type="numero" rows="1" name="numero" id="validationCustom010" maxlength="20" formControlName="numero" #numero required>
+
+                        <span>{{numero.value.length}} / 20</span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+        </gx-card>
+    </div>
+
+</ng-template>
+
+
+
+
+<ng-template #content66 let-modal>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nueva Referencia</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div>
+        <gx-card card-title="">
+            <form [formGroup]="refForm" (submit)="saveRef()" class="needs-validation" novalidate>
+
+                <div class="form-row">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Nombre</label>
+
+                        <input class="form-control border-1 shadow-none bg-focus" type="nombre" rows="1" name="nombre" id="validationCustom010" maxlength="100" formControlName="nombre" #nombre required>
+
+                        <span>{{nombre.value.length}} / 100</span>
+                    </div>
+                </div>
+
+
+
+                <div class="form-row">
+                    <div class="col-sm-12 mb-3">
+                        <label for="validationDefault02">Número</label>
+
+                        <input class="form-control border-1 shadow-none bg-focus" type="numero" rows="1" name="numero" id="validationCustom010" maxlength="20" formControlName="numero" #numero required>
+
+                        <span>{{numero.value.length}} / 20</span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
+            </form>
+        </gx-card>
+    </div>
+
+</ng-template>
+
+<hr>

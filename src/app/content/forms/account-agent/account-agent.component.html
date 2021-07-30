@@ -1,0 +1,164 @@
+<!-- Page Header -->
+<div class="dt-page__header">
+  <h1 class="dt-page__title">Lista de Planificaciones por agente</h1>
+</div>
+<!-- /page header -->
+
+<!-- Grid -->
+<div class="row">
+
+  <!-- Grid Item -->
+  <div class="col-12">
+
+    <!-- Card -->
+    
+
+      <!-- Dropzone -->
+      <div class="box-container" fxLayout="column">
+
+      <!--   <div class="info-container">
+          <p>En esta seccion podrás consultar las cuentas por cada empresa que administras</p>
+        </div> -->
+
+<!--         <div class="horizontal-container row">
+          <div class="vertical-container col-12 col-md-4">
+            <h4 class="text-muted">Selecciona una empresa</h4>
+
+            <div class="action-container mr-5">
+              <div class="btn-group mr-2 mb-2" ngbDropdown>
+                <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+                  {{selectedBussines}}
+                </button>
+                <div ngbDropdownMenu>
+                  <div *ngFor="let item of listEmpresas">
+                    <a class="dropdown-item" (click)="evento(item)">{{item.nombre_comercial}}</a>
+                  </div>
+                  <div class="dropdown-divider"></div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+
+          </div>
+
+          
+        </div> -->
+      </div>
+      <!-- /dropzone -->
+
+  
+    <!-- /card -->
+
+  </div>
+  <!-- /grid item -->
+
+</div>
+
+<div class="row">
+  <bs-card class="overflow-hidden" body-class="pt-0">
+    <!-- Card Header -->
+    <bs-card-header class="bg-transparent">
+      <h3 class="card-title">Listado de Planificaciones</h3>
+      <h5 class="card-subtitle mb-0">Total: </h5>
+
+    </bs-card-header>
+    <!-- /card header -->
+
+    <!-- Tables -->
+    <div class="table-responsive">
+      <p-table #dt1 [value]="listPlanAgente" [lazy]="true" (onLazyLoad)="loadPlanAgente($event)" 
+    [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading"
+    [globalFilterFields]="['id']" dataKey="id">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex">
+        <span class="p-input-icon-left p-ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+              </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">id <p-sortIcon field="id"></p-sortIcon></th>           
+           <th>Fecha</th>
+            <th>Número cuentas</th>
+            <th>Estodo</th>
+           
+            <th>Detalle</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+        <tr>
+            <td>{{customer.id}}</td>
+            <td>{{customer.fecha_planificacion}}</td>
+            <td>{{customer.ncuentas}}</td>
+            <td>{{customer.estado}}</td>
+           
+
+          <td>
+            <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success p-mr-2" (click)="goDetail(customer)" ></button>
+        </td>
+           
+        </tr>
+    </ng-template>
+</p-table>
+    </div>
+    <!-- /tables -->
+
+  </bs-card>
+
+
+  <div class="table-responsive">
+    <p-table #dt1 [value]="listPlanAgente2" [lazy]="true" (onLazyLoad)="loadPlanAgente2($event)" 
+  [paginator]="true" [rows]="10" [totalRecords]="totalRecords" [loading]="loading"
+  [globalFilterFields]="['id']" dataKey="id">
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex">
+      <span class="p-input-icon-left p-ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+            </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="name">Identificación <p-sortIcon field="id"></p-sortIcon></th>           
+       <th>Nombre</th>
+        <th>Fecha Cuenta</th>
+        <th>Nro. Cuenta</th>
+        <th>Producto</th>
+        <th>Periodicidad</th>
+        <th>Plazo</th>
+        <th>Tasa</th>
+        <th>Saldo</th>
+        <th>Estado</th>
+        <th>Detalle</th>
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-customer>
+    <tr>
+        <td>{{customer.identificacion}}</td>
+        <td>{{customer.apellido}} {{customer.nombre}}</td>
+        <td>{{customer.fecha_concesion}}</td>
+        <td>{{customer.nro_credito}}</td>
+        <td>{{customer.nombre_producto}}</td>
+        <td>{{customer.periocidad}}</td>
+        <td>{{customer.plazo}}</td>
+        <td>{{customer.tasa}}</td>
+        <td>{{customer.saldo_total}}</td>
+        <td [ngClass]="customer.colorStatus">{{customer.estado}}</td>
+
+      <td>
+        <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success p-mr-2" (click)="goDetail2(customer)" ></button>
+    </td>
+       
+    </tr>
+  </ng-template>
+</p-table>
+  </div>
+
+</div>
+<!-- /grid -->

@@ -1,0 +1,366 @@
+<div class="mat-sidenav-container" style="overflow-y: scroll !important;">
+
+    <div class="centersteep">
+
+        <!-- HORIZONTAL STEPPER EXAMPLE -->
+        <mat-horizontal-stepper class="mat-elevation-z4" islinear>
+
+            <mat-step [stepControl]="horizontalStepperStep1">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep1">
+
+                    <ng-template matStepLabel>APROBACIÓN</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+
+                        <form>
+                            <div class="form-group form-inline">
+                                Busqueda:
+                                <input class="form-control ml-2" #search type="text" [formControl]="filter" (keyup.enter)="loadsearch(search.value)" />
+                            </div>
+                        </form>
+
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Id</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Secuencia</th>
+                                        <th class="text-uppercase" scope="col" style="width: 50%;">Evento</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Estado</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Riesgo</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Aprobar</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of listrie; index as i">
+
+                                        <td>{{element.id_riesgo}} </td>
+                                        <td>{{element.secuencia}}</td>
+
+                                        <td>{{element.evento}}</td>
+                                        <td> {{element.desc_riesgo}}</td>
+                                        <td>{{element.estado}}</td>
+                                        <td>
+                                            <div class="hide-content">
+                                                <!-- Action Button Group -->
+                                                <div class="action-btn-group">
+                                                    <button class="btn btn-default text-success dt-fab-btn" (click)="aprobarRiesgo(element)">
+                                                        <i class="material-icons">done</i>
+                                                    </button>
+                                                    <button class="btn btn-default text-success dt-fab-btn" (click)="rechazarRiesgo(element)">
+                                                        <i style="color: red;" class="material-icons">cancel</i>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="d-flex justify-content-between p-2">
+                                <ngb-pagination [collectionSize]="totalsize" [(page)]="page" [pageSize]="pageSize" (pageChange)="paginator($event)">
+                                </ngb-pagination>
+
+                                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" [ngModelOptions]="{standalone: true}" (change)="changePag(pageSize)">
+                                    <option [ngValue]="5">5 registros</option>
+                                    <option [ngValue]="10">10 registros</option>
+                                    <option [ngValue]="20">20 registros</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="next(1)">
+                            Siguiente
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+            <mat-step [stepControl]="horizontalStepperStep2">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep2">
+
+                    <ng-template matStepLabel>SEGUIMIENTO</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+                        <form>
+                            <div class="form-group form-inline">
+                                Busqueda:
+                                <input class="form-control ml-2" #search2 type="text" [formControl]="filter" (keyup.enter)="loadsearch2(search2.value)" />
+                            </div>
+                        </form>
+
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Id</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Secuencia</th>
+                                        <th class="text-uppercase" scope="col" style="width: 50%;">Evento</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Estado</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Riesgo</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Acciones</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of listrie2; index as i">
+
+                                        <td>{{element.id_riesgo}} </td>
+                                        <td>{{element.secuencia}}</td>
+
+                                        <td>{{element.evento}}</td>
+                                        <td> {{element.desc_riesgo}}</td>
+                                        <td>{{element.estado}}</td>
+                                        <td>
+                                            <div class="hide-content">
+                                                <!-- Action Button Group -->
+                                                <div class="action-btn-group">
+                                                    <button class="btn btn-default text-success dt-fab-btn" (click)="iniciarRiesgo(element)">
+
+                                                        <i class="material-icons">play_arrow</i>
+                                                    </button>
+                                                    <button class="btn btn-default text-success dt-fab-btn" (click)="abrirDialog(element)">
+
+                                                        <i class="material-icons" style="color: red;">stop</i>
+                                                    </button>
+
+
+                                                </div>
+                                                <!-- /action button group -->
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="d-flex justify-content-between p-2">
+                                <ngb-pagination [collectionSize]="totalsize2" [(page)]="page2" [pageSize]="pageSize2" (pageChange)="paginator2($event)">
+                                </ngb-pagination>
+
+                                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize2" [ngModelOptions]="{standalone: true}" (change)="changePag2(pageSize2)">
+                                    <option [ngValue]="5">5 registros</option>
+                                    <option [ngValue]="10">10 registros</option>
+                                    <option [ngValue]="20">20 registros</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <br>
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="next(2)">
+                            Siguiente
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+            <mat-step [stepControl]="horizontalStepperStep6">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep6">
+
+                    <ng-template matStepLabel>CULMINAR EVENTO</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+
+                        <form>
+                            <div class="form-group form-inline">
+                                Busqueda:
+                                <input class="form-control ml-2" #search3 type="text" [formControl]="filter" (keyup.enter)="loadsearch3(search3.value)" />
+                            </div>
+                        </form>
+
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Id</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Secuencia</th>
+                                        <th class="text-uppercase" scope="col" style="width: 50%;">Evento</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Estado</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Riesgo</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Acciones</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of listrie6; index as i">
+
+                                        <td>{{element.id_riesgo}} </td>
+                                        <td>{{element.secuencia}}</td>
+
+                                        <td>{{element.evento}}</td>
+                                        <td> {{element.desc_riesgo}}</td>
+                                        <td>{{element.estado}}</td>
+                                        <td>
+                                            <div class="hide-content">
+                                                <!-- Action Button Group -->
+                                                <div class="action-btn-group">
+
+                                                    <button class="btn btn-default text-success dt-fab-btn" (click)="iniciarRiesgo(element)">
+
+                                                        <i class="material-icons">play_arrow</i>
+                                                    </button>
+                                                    <button class="btn btn-default text-success dt-fab-btn" (click)="abrirDialog(element)">
+
+                                                        <i class="material-icons" style="color: red;">stop</i>
+                                                    </button>
+
+
+                                                </div>
+                                                <!-- /action button group -->
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="d-flex justify-content-between p-2">
+                                <ngb-pagination [collectionSize]="totalsize3" [(page)]="page3" [pageSize]="pageSize3" (pageChange)="paginator3($event)">
+                                </ngb-pagination>
+
+                                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize3" [ngModelOptions]="{standalone: true}" (change)="changePag3(pageSize2)">
+                                    <option [ngValue]="5">5 registros</option>
+                                    <option [ngValue]="10">10 registros</option>
+                                    <option [ngValue]="20">20 registros</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <br>
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent" (click)="next(6)">
+                            Siguiente
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+
+
+            <mat-step [stepControl]="horizontalStepperStep4">
+
+                <form fxLayout="column" [formGroup]="horizontalStepperStep4">
+
+                    <ng-template matStepLabel>REEVALUAR</ng-template>
+
+                    <div fxFlex="1 0 auto" fxLayout="column">
+                        <form>
+                            <div class="form-group form-inline">
+                                Busqueda:
+                                <input class="form-control ml-2" #search4 type="text" [formControl]="filter" (keyup.enter)="loadsearch4(search4.value)" />
+                            </div>
+                        </form>
+
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Id</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Secuencia</th>
+                                        <th class="text-uppercase" scope="col" style="width: 50%;">Evento</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Estado</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Riesgo</th>
+                                        <th class="text-uppercase" scope="col" style="width: 10%;">Acciones</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of listrie4; index as i">
+
+                                        <td>{{element.id_riesgo}} </td>
+                                        <td>{{element.secuencia}}</td>
+
+                                        <td>{{element.evento}}</td>
+                                        <td> {{element.desc_riesgo}}</td>
+                                        <td>{{element.estado}}</td>
+                                        <td>
+                                            <div class="hide-content">
+                                                <!-- Action Button Group -->
+                                                <div class="action-btn-group">
+
+
+                                                    <button class="btn btn-default text-success dt-fab-btn" (click)="reevaluarRiesgo(element)">
+
+                                                        <i class="material-icons">done</i>
+                                                    </button>
+
+
+
+                                                </div>
+                                                <!-- /action button group -->
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="d-flex justify-content-between p-2">
+                                <ngb-pagination [collectionSize]="totalsize4" [(page)]="page4" [pageSize]="pageSize4" (pageChange)="paginator4($event)">
+                                </ngb-pagination>
+
+                                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize4" [ngModelOptions]="{standalone: true}" (change)="changePag4(pageSize4)">
+                                    <option [ngValue]="5">5 registros</option>
+                                    <option [ngValue]="10">10 registros</option>
+                                    <option [ngValue]="20">20 registros</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Anterior
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+        </mat-horizontal-stepper>
+
+    </div>

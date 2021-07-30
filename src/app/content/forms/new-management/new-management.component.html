@@ -1,0 +1,313 @@
+
+<div class="overlay" *ngIf="loading">
+
+    <div class="spinner ">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        
+
+</div>
+    </div>
+</div>
+<div class="modal-header">
+
+    <button type="button" class="close" aria-label="Close" (click)="closeModal('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+    <gx-card  card-title="Nueva Gestión">
+        <gx-media-icon-card label="Coordenadas">
+            <gx-icon name="maps" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+            <p class="h5 mb-0" text>{{this.latitude}} , {{this.longitude}} </p>
+        </gx-media-icon-card>
+        <!-- Form -->
+        <form [formGroup]="gestionForm" (submit)="onSubmitForm()" class="needs-validation" novalidate>
+
+            <div class="form-row">
+                <div class="col-sm-4 mb-3">
+                    <label for="validationDefault01">Fecha de gestión</label>
+                    <input type="text" class="form-control" value="{{dateFinal}}" readonly>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label for="validationDefault02">Tipo gestión *</label>
+                    <div class="action-container mr-5">
+                        <div class="btn-group mr-2 mb-2" ngbDropdown>
+                            <!--                         <input  formControlName="iTipoGestion"  id="validationCustom02" class="form-control" value="{{selectedTipoGestion?selectedTipoGestion:''}}" readonly required #iTipoGestion />
+ -->
+                            <input class="form-control  border-1 shadow-none bg-focus" rows="1" name="iTipoGestion"
+                                id="validationCustom01" maxlength="1000" formControlName="iTipoGestion" #iTipoGestion
+                                placeholder="Seleccione" style="text-transform: uppercase;" required>
+                            <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+
+                            </button>
+                            <div ngbDropdownMenu>
+                                <div *ngFor="let item of listTipoGestion">
+                                    <a class="dropdown-item" (click)="eventotipogestion(item)">{{item.nombre}}</a>
+                                </div>
+                                <div class="dropdown-divider"></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3" *ngIf="llamada">
+                    <label for="validationDefault02">Responde Llamada *</label>
+                    <div class="action-container mr-5">
+                        <div class="btn-group mr-2 mb-2" ngbDropdown>
+                            <input matInput formControlName="iResponde"
+                                class="form-control border-1 shadow-none bg-focus" id="validationCustom02"
+                                value="{{selectedResponde?selectedResponde:''}}" required
+                                style="color: black;  height: 47px;" />
+
+
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+
+
+                            </button>
+                            <div ngbDropdownMenu>
+                                <a class="dropdown-item" (click)="eventoLlamada(1)">Si</a>
+                                <a class="dropdown-item" (click)="eventoLlamada(0)">No</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3" *ngIf="esPrecencial">
+                    <label for="validationDefault02">¿Localizado? *</label>
+                    <div class="action-container mr-5">
+                        <div class="btn-group mr-2 mb-2" ngbDropdown>
+                            <input matInput formControlName="iLocalizado"
+                                class="form-control border-1 shadow-none bg-focus" id="validationCustom02"
+                                value="{{selectedLocalizado?selectedLocalizado:''}}" required
+                                style="color: black;  height: 47px;" />
+
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                            </button>
+                            <div ngbDropdownMenu>
+                                <a class="dropdown-item" (click)="eventoLocalizado(1)">Si</a>
+                                <a class="dropdown-item" (click)="eventoLocalizado(0)">No</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="!esElectronica">
+                <label for="validationDefault02">Observacion de la gestión *</label>
+
+                <textarea class="form-control  border-1 shadow-none bg-focus" rows="3" name="observacion"
+                    id="validationCustom04" maxlength="1000" formControlName="observacion" #observacion required
+                    placeholder="Ingrese la Observacion"></textarea>
+                <span>{{observacion.value.length}} / 1000</span>
+            </div>
+            <!--  ****************************INICIO MAIL *****************************************-->
+
+            <div perfectScrollbar *ngIf="esElectronica">
+
+
+                <!-- Compose Mail Body -->
+                <div class="compose-mail-box__body">
+                    <!-- Form -->
+
+                    <!-- Form Group -->
+                    <div class="form-group mb-1">
+
+                        <label class="sr-only" for="email">Dirección de Correo</label>
+                        <input type="email" class="form-control" id="email"
+                            placeholder="Ingresa una direccion de correo" name="email" formControlName="email" required>
+
+                    </div>
+                    <!-- /form group -->
+
+                    <!-- Form Group -->
+                    <div class="form-group">
+                        <label class="sr-only" for="subject">Asunto</label>
+                        <input type="text" class="form-control" placeholder="Asunto" id="subject" name="subject"
+                            formControlName="subject" required>
+                    </div>
+                    <!-- /form group -->
+
+                    <!-- Form Group -->
+                   <!--  <div class="form-group">
+                        <label class="sr-only" for="textarea">Mensaje</label>
+                        <textarea class="form-control" placeholder="Escribe tu mensaje" id="textarea" name="message"
+                            formControlName="message"></textarea>
+                    </div> -->
+
+                    <div class="col-sm-4 mb-3" >
+                        <label for="validationDefault02">Fecha de pago</label>
+    
+                        <input type='date' #myDate min="{{currentDate|date:'yyyy-MM-dd'}}" class="form-control" formControlName="fechaPago" required /><br>
+    
+    
+                    </div>
+                    <div class="col-sm-4 mb-3" >
+                        <label for="validationDefault02">Valor</label>
+    
+                        <input matInput formControlName="montoPago" currencyMask class="form-control" required
+                            [options]="{ prefix: '$ ', thousands: '.', decimal: ',' }"
+                            style="color: black;  height: 47px;" />
+    
+    
+    
+                    </div>
+
+
+                    <!-- /form group -->
+
+                    <!-- Form Group -->
+
+                    <!-- /form group -->
+
+                </div>
+                <!-- /compose mail body -->
+            </div>
+
+
+            <!--  FIN MAIL **************************************************************************-->
+
+            <div class="form-row" *ngIf="mostarSolucion">
+                <div class="col-sm-4 mb-3">
+                    <label for="validationDefault02">Solucion *</label>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend" ngbDropdown>
+                            <input matInput formControlName="iSolucion"
+                                class="form-control border-1 shadow-none bg-focus" id="validationCustom05"
+                                value="{{selectedSolucion?selectedSolucion:''}}" required
+                                style="color: black;  height: 47px;" />
+
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div ngbDropdownMenu>
+                                <div *ngFor="let item of listSolucion">
+                                    <a class="dropdown-item" (click)="eventoSolucion(item)">{{item.nombre}}</a>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                            <!-- /dropdown menu -->
+
+                        </div>
+                    </div> 
+                </div>
+
+
+                <div class="col-sm-4 mb-3" *ngIf="mostrarFecha">
+                    <label for="validationDefault02">Fecha de compromiso</label>
+
+                    <input type='date' #myDate min="{{currentDate|date:'yyyy-MM-dd'}}" class="form-control" formControlName="fechaCompromiso" required /><br>
+
+
+                </div>
+                <div class="col-sm-4 mb-3" *ngIf="mostrarValor">
+                    <label for="validationDefault02">Valor</label>
+
+                    <input matInput formControlName="monto" currencyMask class="form-control" required
+                        [options]="{ prefix: '$ ', thousands: '.', decimal: ',' }"
+                        style="color: black;  height: 47px;" />
+
+
+
+                </div>
+
+
+                <div class="col-sm-4 mb-3"  *ngIf="mostarFormaPago">
+                    <label for="validationDefault02">Forma de Pago *</label>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend" ngbDropdown>
+                            <input matInput formControlName="formaPago"
+                                class="form-control border-1 shadow-none bg-focus" id="validationCustom05"
+                                value="{{selectedFormaPago?selectedFormaPago:''}}" required
+                                style="color: black;  height: 47px;" />
+
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div ngbDropdownMenu>
+                                <div *ngFor="let item of listFormasPago">
+                                    <a class="dropdown-item" (click)="eventoFormaPago(item)">{{item.nombre}}</a>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                            <!-- /dropdown menu -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 mb-3" *ngIf="mostarFormaPago">
+                    <label for="validationDefault02">Número recibo</label>
+
+                    <input matInput formControlName="nro_recibo"  class="form-control" required
+                
+                        style="color: black;  height: 47px;" />
+
+
+
+                </div>
+
+
+
+            </div>
+
+            <br>
+            
+
+            <br>
+            <div class="form-row">
+                <div class="col-sm-8 mb-3">
+
+                    <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+                        (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                            Arrastra tu archivo o selecciona en el botón<span> </span>
+                            <div style="width: 100px;"></div>
+                            <button type="button" class="btn btn-outline-primary" (click)="openFileSelector()"><i
+                                    class="pi pi-upload"></i></button>
+                        </ng-template>
+                    </ngx-file-drop>
+                    <div class="upload-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre: </th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody class="upload-name-style">
+                                <tr *ngFor="let item of files; let i=index">
+                                    <td><strong>{{ item.relativePath }}</strong></td>
+                                    <td style="width: 200px;">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar"
+                                                [style.width]="listPorcentajes[i]" aria-valuenow="100" aria-valuemin="0"
+                                                aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 mb-3">
+
+                    <button class="btn btn-primary" type="submit" [disabled]="disableSave">Guardar Gestión</button>
+                    <!-- /form -->
+                </div>
+
+            </div>
+
+        </form>
+
+
+
+    </gx-card>

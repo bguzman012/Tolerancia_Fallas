@@ -1,0 +1,165 @@
+<!--
+<div class="mat-sidenav-container" style="overflow-y: scroll !important;">
+    <div class="example-container mat-elevation-z8">
+        <div class="example-header">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar..">
+            </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="font-size: 14px;
+min-height: 48px;
+text-align: center;
+border-right: 1px solid black;">
+
+          
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h5 style="text-align: center;">Editar</h5>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column">
+                    <button mat-raised-button type="button" (click)="editarRiesgo(element)" matTooltip="Editar Riesgo" [matTooltipPosition]="'above'">
+            <i class="material-icons">visibility</i>
+        </button>
+                </td>
+            </ng-container>
+
+           <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef 
+            [style.text-align]="center"> 
+          Id 
+        </th>
+        <td mat-cell *matCellDef="let element"  class="mat-column"> {{element.id_riesgo}} </td>
+        <td mat-cell *matCellDef="let element"  class="mat-column"> {{element.id_riesgo}} </td>
+      </ng-container> 
+
+            <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h5 style="text-align: center;">Id</h5>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column"> {{element.id_riesgo}} </td>
+            </ng-container>
+
+            
+            <ng-container matColumnDef="Secuencia">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h5 style="text-align: center;">Secuencia</h5>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column"> {{element.secuencia}} </td>
+            </ng-container>
+
+
+ 
+            <ng-container matColumnDef="Evento" style="width: 50px;">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h5 style="text-align: center;">Evento</h5>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column"> {{element.evento}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Riesgo">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h5 style="text-align: center;">Riesgo</h5>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column" [style.background-color]="element.colorries"> {{element.desc_riesgo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Estado">
+                <th mat-header-cell *matHeaderCellDef>
+                    <h5 style="text-align: center;">Estado</h5>
+                </th>
+                <td mat-cell *matCellDef="let element" class="mat-column"> {{element.estado}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+            </tr>
+
+
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
+-->
+
+
+<!--This is did for me-->
+<!-- Card Header -->
+<card-header class="mb-5" card-title="">
+
+
+
+</card-header>
+<!-- /card header -->
+
+<!-- Card Body -->
+<card-body class="p-0">
+
+    <!-- Widget -->
+    <div class="dt-widget dt-widget-hl-item dt-widget-hl-item-space dt-widget-mb-item dt-widget-hover-bg">
+
+
+        <form>
+            <div class="form-group form-inline">
+                Busqueda:
+                <input class="form-control ml-2" #search type="text" [formControl]="filter" (keyup.enter)="loadsearch(search.value)" />
+            </div>
+        </form>
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered mb-0">
+                <thead>
+                    <tr>
+
+                        <th class="text-uppercase" scope="col">Id</th>
+                        <th class="text-uppercase" scope="col">Secuencia</th>
+                        <th class="text-uppercase" scope="col">Evento</th>
+                        <th class="text-uppercase" scope="col">Riesgo</th>
+                        <th class="text-uppercase" scope="col">Estado</th>
+                        <th class="text-uppercase" scope="col">Editar</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let element of listrie; index as i">
+
+                        <td>{{element.id_riesgo}} </td>
+                        <td>{{element.secuencia}}</td>
+
+                        <td>{{element.evento}}</td>
+                        <td [ngStyle]="{ 'background-color': element.colorries}" style="color: black; font-weight: bold;text-align: center "> {{element.desc_riesgo}}</td>
+                        <td>{{element.estado}}</td>
+                        <td>
+                            <div class="hide-content">
+                                <!-- Action Button Group -->
+                                <div class="action-btn-group">
+                                    <button class="btn btn-default text-success dt-fab-btn" (click)="editarRiesgo(element)">
+
+                                        <i class="material-icons">visibility</i>
+                                    </button>
+
+
+                                </div>
+                                <!-- /action button group -->
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="totalsize" [(page)]="page" [pageSize]="pageSize" (pageChange)="paginator($event)">
+                </ngb-pagination>
+
+                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="changePag(pageSize)">
+                <option [ngValue]="5">5 registros</option>
+                <option [ngValue]="10">10 registros</option>
+                <option [ngValue]="20">20 registros</option>
+              </select>
+            </div>
+        </div>
+
+    </div>
+    <!-- /widget -->
+</card-body>
+<!-- /card body -->

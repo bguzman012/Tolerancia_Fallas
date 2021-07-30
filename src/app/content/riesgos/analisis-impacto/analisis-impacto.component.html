@@ -1,0 +1,533 @@
+<div class="overlay" *ngIf="loading">
+
+    <div class="spinner ">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+
+
+        </div>
+    </div>
+</div>
+<gx-card card-title="Analisis de Riesgos">
+    <div class="btn-group mr-2 mb-2">
+        <label for="typeahead-focus">Seleccione Proceso:</label>
+        <input id="typeahead-focus" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" (focus)="focus$.next($any($event).target.value)" (selectItem)="selectedItem($event)" (click)="click$.next($any($event).target.value)" [resultFormatter]="resultFormatBandListValue"
+            [inputFormatter]="inputFormatBandListValue" #instance="ngbTypeahead" />
+
+        <!--
+        <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [ngModelOptions]="{standalone: true}" placeholder="Seleccione proceso" [suggestions]="filteredCountries" (onSelect)="onChange($event)" required [style]="{'width': '100%'}" (completeMethod)="filterCountry($event)"
+            field="nombre_proceso" [dropdown]="true">
+            <ng-template let-country pTemplate="item">
+                <div class="country-item">
+
+                    <div>{{country.nombre_proceso}}</div>
+                </div>
+            </ng-template>
+        </p-autoComplete>
+-->
+    </div>
+
+</gx-card>
+
+<card-body class="p-0" *ngIf="size_subproces != 0">
+
+    <!-- Widget -->
+    <div class="dt-widget dt-widget-hl-item dt-widget-hl-item-space dt-widget-mb-item dt-widget-hover-bg">
+
+        <div class="table-responsive">
+            <table class="table table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th class="text-uppercase" scope="col">Subproceso
+
+                        </th>
+                        <th class="text-uppercase" scope="col">Impacto Economico
+                            <gx-icon name="info" size="1x" (click)="open(content)"></gx-icon>
+                        </th>
+                        <th class="text-uppercase" scope="col">Impacto Operacional
+                            <gx-icon name="info" size="1x" (click)="open(content2)"></gx-icon>
+                        </th>
+                        <th class="text-uppercase" scope="col">Impacto Legal
+                            <gx-icon name="info" size="1x" (click)="open(content3)"></gx-icon>
+                        </th>
+                        <th class="text-uppercase" scope="col">Impacto Reputacional
+                            <gx-icon name="info" size="1x" (click)="open(content4)"></gx-icon>
+                        </th>
+                        <th class="text-uppercase" scope="col">Impacto
+                            <gx-icon name="info" size="1x" (click)="open(content5)"></gx-icon>
+                        </th>
+                        <th class="text-uppercase" scope="col">Criticidad
+                            <gx-icon name="info" size="1x" (click)="open(content6)"></gx-icon>
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of lista_subproces; index as i">
+                        <th scope="row">{{i+1}}</th>
+
+                        <td>{{item.nombre_subproceso}}</td>
+                        <td>
+                            <p-autoComplete [(ngModel)]="item.economico" [ngModelOptions]="{standalone: true}" placeholder="Seleccione ..." (onSelect)="onChange(item)" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" required [style]="{'width': '80%', 'margin-right': '13px'}"
+                                field="valoracion" [dropdown]="true">
+                                <ng-template let-country pTemplate="item" style="position: fixed;" readonly>
+                                    <div class="country-item">
+
+                                        <div>{{country.valoracion}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+                            <div class="icon" [ngStyle]="{ 'background-color': item.economico.color,'color': item.economico.color}">
+                                <gx-icon name="box-o" size="1x"></gx-icon>
+                            </div>
+                            <small *ngIf="item.economico.id_economico=='' && inserted " class="error-message ">Campo
+                                Requerido</small>
+
+                        </td>
+
+                        <td>
+                            <p-autoComplete [(ngModel)]="item.operacional " [ngModelOptions]="{standalone: true} " placeholder="Seleccione ... " (onSelect)="onChange(item) " [suggestions]="filteredOperacional " (completeMethod)="filterOperacional($event)
+                                    " required [style]="{'width': '80%', 'margin-right': '13px'}" field="cuantificacion" [dropdown]="true ">
+                                <ng-template let-country pTemplate="item " style="position: fixed; ">
+                                    <div class="country-item ">
+
+                                        <div>{{country.cuantificacion}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+                            <div class="icon" [ngStyle]="{ 'background-color': item.operacional.color,'color': item.operacional.color}">
+                                <gx-icon name="box-o" size="1x"></gx-icon>
+                            </div>
+
+                            <small *ngIf="item.operacional.id_operacional=='' && inserted " class="error-message ">Campo Requerido</small>
+
+
+                        </td>
+                        <td>
+                            <p-autoComplete [(ngModel)]="item.legal " [ngModelOptions]="{standalone: true} " placeholder="Seleccione ... " (onSelect)="onChange(item) " [suggestions]="filteredLegal " (completeMethod)="filterLegal($event)
+                                    " required [style]="{'width': '80%', 'margin-right': '13px'}" field="cuantificacion" [dropdown]="true ">
+                                <ng-template let-country pTemplate="item " style="position: fixed; ">
+                                    <div class="country-item ">
+
+                                        <div>{{country.cuantificacion}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+                            <div class="icon" [ngStyle]="{ 'background-color': item.legal.color,'color': item.legal.color}">
+                                <gx-icon name="box-o" size="1x"></gx-icon>
+                            </div>
+                            <small *ngIf="item.legal.id_legal=='' && inserted " class="error-message ">Campo
+                                Requerido</small>
+
+
+                        </td>
+                        <td>
+                            <p-autoComplete [(ngModel)]="item.reputacional " [ngModelOptions]="{standalone: true} " placeholder="Seleccione ... " (onSelect)="onChange(item) " [suggestions]="filteredReputacional " (completeMethod)="filterReputacional($event)
+                                    " required [style]="{'width': '80%', 'margin-right': '13px'}" field="cuantificacion" [dropdown]="true ">
+                                <ng-template let-country pTemplate="item " style="position: fixed; ">
+                                    <div class="country-item ">
+
+                                        <div>{{country.cuantificacion}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-autoComplete>
+                            <div class="icon" [ngStyle]="{ 'background-color': item.reputacional.color,'color': item.reputacional.color}">
+                                <gx-icon name="box-o" size="1x"></gx-icon>
+                            </div>
+                            <small *ngIf="item.reputacional.id_reputacional=='' && inserted " class="error-message ">Campo Requerido</small>
+
+
+
+                        </td>
+
+                        <td [ngStyle]="{ 'background-color': item.color_calificacion} " style="color: black; font-weight: bold; "> {{item.resultado}} {{item.calificacion}}
+
+                        </td>
+                        <td [ngStyle]="{ 'background-color': item.color_criticidad} " style="color: black; font-weight: bold; "> {{item.valoracion_criticidad}}</td>
+
+
+                    </tr>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+                </tbody>
+            </table>
+            <!--
+            <div class="d-flex justify-content-between p-2 ">
+                <ngb-pagination [collectionSize]="totalsize " [(page)]="page " [pageSize]="pageSize " (pageChange)="paginator($event) ">
+                </ngb-pagination>
+
+                <select class="custom-select " style="width: auto " [(ngModel)]="pageSize " (change)="changePag(pageSize) ">
+                  <option [ngValue]="5 ">5 registros</option>
+                  <option [ngValue]="10 ">10 registros</option>
+                  <option [ngValue]="20 ">20 registros</option>
+                </select>
+            </div>
+            -->
+        </div>
+        <div class="modal-footer ">
+            <button class="btn btn-primary " type="submit " (click)="saveImpacto() ">Guardar Subprocesos</button>
+            <button *ngIf="isEmpty == false" class="btn btn-danger" type="submit " (click)="generarReporte() ">Generar Reporte</button>
+
+        </div>
+
+    </div>
+    <!-- /widget -->
+</card-body>
+<card-body class="p-0" *ngIf="size_subproces == 0 && flag_inserted">
+    <div class="dt-widget dt-widget-hl-item dt-widget-hl-item-space dt-widget-mb-item dt-widget-hover-bg">
+
+        <h4 style="color: red;">No se encontraron subprocesos pertenecientes a este proceso</h4>
+    </div>
+</card-body>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-basic-title ">Impacto Economico</h4>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="table-responsive ">
+            <table class="table table-bordered mb-0 ">
+                <thead>
+                    <tr>
+
+                        <th class="text-uppercase " scope="col ">Valoracion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Monto Min
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Monto Max
+
+                        </th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of info_economica; index as i ">
+
+                        <td>
+                            {{item.nombre}}
+                        </td>
+
+                        <td>
+                            {{item.minimo}}
+                        </td>
+                        <td>
+                            {{item.maximo}}
+                        </td>
+
+                    </tr>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</ng-template>
+
+<ng-template #content2 let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-basic-title ">Impacto Operacional</h4>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="table-responsive ">
+            <table class="table table-bordered mb-0 ">
+                <thead>
+                    <tr>
+
+                        <th class="text-uppercase " scope="col ">Valoracion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Cuantificacion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Descripcion
+
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of info_operacion; index as i ">
+
+                        <td>
+                            {{item.nombre}}
+                        </td>
+
+                        <td>
+                            {{item.cuantificacion}}
+                        </td>
+                        <td>
+                            {{item.descripcion}}
+                        </td>
+                    </tr>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #content3 let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-basic-title ">Impacto Legal</h4>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="table-responsive ">
+            <table class="table table-bordered mb-0 ">
+                <thead>
+                    <tr>
+
+                        <th class="text-uppercase " scope="col ">Valoracion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Cuantificacion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Descripcion
+
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of info_legal; index as i ">
+
+                        <td>
+                            {{item.nombre}}
+                        </td>
+
+                        <td>
+                            {{item.cuantificacion}}
+                        </td>
+                        <td>
+                            {{item.descripcion}}
+                        </td>
+
+                    </tr>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #content4 let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-basic-title ">Impacto Reputacional</h4>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="table-responsive ">
+            <table class="table table-bordered mb-0 ">
+                <thead>
+                    <tr>
+
+                        <th class="text-uppercase " scope="col ">Valoracion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Cuantificacion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Descripcion
+
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of info_reputacional; index as i ">
+
+                        <td>
+                            {{item.nombre}}
+                        </td>
+
+                        <td>
+                            {{item.cuantificacion}}
+                        </td>
+                        <td>
+                            {{item.descripcion}}
+                        </td>
+                    </tr>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</ng-template>
+<ng-template #content5 let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-basic-title ">Impacto</h4>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="table-responsive ">
+            <table class="table table-bordered mb-0 ">
+                <thead>
+                    <tr>
+
+                        <th class="text-uppercase " scope="col ">Id
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Estimacion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Valoracion
+
+                        </th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of impactos; index as i ">
+
+                        <td>
+                            {{item.id}}
+                        </td>
+
+                        <td>
+                            {{item.estimacion}}
+                        </td>
+                        <td>
+                            {{item.valoracion}}
+
+                    </tr>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</ng-template>
+<ng-template #content6 let-modal>
+    <div class="modal-header ">
+        <h4 class="modal-title " id="modal-basic-title ">Criticidad</h4>
+        <button type="button " class="close " aria-label="Close " (click)="modal.dismiss( 'Cross click') ">
+            <span aria-hidden="true ">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <div class="table-responsive ">
+            <table class="table table-bordered mb-0 ">
+                <thead>
+                    <tr>
+
+                        <th class="text-uppercase " scope="col ">Estimacion
+
+                        </th>
+                        <th class="text-uppercase " scope="col ">Valoracion
+
+                        </th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of criticida; index as i ">
+
+                        <td>
+                            {{item.estimacion}}
+                        </td>
+                        <td>
+                            {{item.valoracion}}
+
+                    </tr>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</ng-template>

@@ -1,0 +1,80 @@
+<!-- Login Content -->
+<!-- MAO EDITADO -->
+<div class="dt-login__content-wrapper">
+
+  <!-- Header -->
+  <auth-header title="Recuperar Contraseña" desc="Ingresa tu nombre de usuario"></auth-header>
+  <!-- /header -->
+
+  <!-- Login Content Section -->
+  <div class="dt-login__content">
+    <!-- Login Content Inner -->
+
+    <div class="dt-login__content-inner">
+
+      <!-- Form -->
+      <form (ngSubmit)="onSubmitSignIn()" #signinForm="ngForm">
+
+        <!-- Form Group -->
+        <div class="form-group">
+          <label class="sr-only" for="email-1">Usuario</label>
+          <input type="email"
+                 class="form-control"
+                 id="email-1"
+                 aria-describedby="emailHelp"
+                 placeholder="Usuario"
+                 [formControl]="usuario" required>
+        </div>
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <!-- <div class="form-group">
+          <label class="sr-only" for="password-1">Password</label>
+          <input type="password"
+                 class="form-control"
+                 id="password-1"
+                 placeholder="Password"
+                 [formControl]="password" required>
+        </div> -->
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <!-- <div class="dt-checkbox d-block mb-6">
+          <input type="checkbox" id="keepMeLoggedIn" [formControl]="keepMeLoggedIn">
+          <label class="dt-checkbox-content" for="keepMeLoggedIn">
+            by signing up, I accept <a href="javascript:void(0)">Term &amp; Condition</a>
+          </label>
+        </div> -->
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary text-uppercase">Recuperar</button>
+          <!-- <span class="d-inline-block ml-5">Or
+              <a class="d-inline-block font-weight-500 ml-3" routerLink="/signup">Create New Account</a>
+            </span> -->
+        </div>
+        <br>
+        <br>
+        <!-- /form group -->
+
+        <!-- Form Group -->
+        <div class="d-flex flex-wrap align-items-center">
+          <span class="d-inline-block ml-5"> 
+            <a class="d-inline-block font-weight-500 ml-3" routerLink="/signin">Iniciar sesión</a>
+          </span> 
+        </div>
+        <!-- /form group -->
+
+
+      </form>
+      <!-- /form -->
+
+    </div>
+    <!-- /login content inner -->
+
+  </div>
+  <!-- /login content section -->
+
+</div>
+<!-- /login content -->

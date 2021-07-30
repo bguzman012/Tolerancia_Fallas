@@ -1,0 +1,38 @@
+.mat-sidenav-container {
+    width: 100%;
+}
+
+.horizontal-stepper-wrapper,
+.vertical-stepper-wrapper {
+    width: 80%;
+    max-width: 800px;
+}
+
+.centersteep {
+    background-color: white;
+}
+
+.etiquetas {
+    font-weight: bold;
+    color: blue;
+    font-size: large;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+.cardInner {
+    display: grid;
+    grid-template-areas: "header header" "side content" "footer footer";
+    grid-template-rows: auto auto auto;
+    grid-row-gap: 16px;
+    grid-column-gap: 16px;
+}
+
+.mat-form-field {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    text-align: left;
+}

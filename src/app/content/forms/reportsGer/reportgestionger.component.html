@@ -1,0 +1,63 @@
+<div class="dt-page__header">
+  <h1 class="dt-page__title">Reporte de Gestiones Gerenciales</h1>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="box-container" fxLayout="column">
+      <form [formGroup]="gestionForm" class="needs-validation" novalidate>
+        <div class="horizontal-container row">
+          <div class="vertical-container col-12 col-md-4">
+            <h4 class="text-muted">Selecciona una empresa</h4>
+
+            <div class="action-container mr-5">
+              <div class="btn-group mr-2 mb-2" ngbDropdown>
+                <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>
+                  {{selectedBussines}}
+                </button>
+                <div ngbDropdownMenu>
+                  <div *ngFor="let item of listEmpresas">
+                    <a class="dropdown-item" (click)="evento(item)">{{item.nombre_comercial}}</a>
+                  </div>
+                  <div class="dropdown-divider"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 mb-3">
+            <label for="validationDefault02">Desde: </label>
+
+            <input type='date' #desde class="form-control" formControlName="desde" required /><br>
+          </div>
+          <div class="col-sm-4 mb-3">
+            <label for="validationDefault02">Hasta: </label>
+
+            <input type='date' #myDate min="{{desde.value|date:'yyyy-MM-dd'}}" class="form-control"
+              formControlName="hasta" required /><br>
+          </div>
+        </div>
+      </form>
+      <label for="validationDefault02">Elija el formato del reporte</label>
+      <div class="row">
+        <div class="col-sm-4 mb-3">
+
+          <div class="btn-group btn-group-toggle mb-2" ngbRadioGroup name="radio_option2" [(ngModel)]="option">
+            <label class="btn btn-outline-primary" ngbButtonLabel>
+              <input type="radio" ngbButton value="PDF"> {{(option == '1')? 'PDF' :
+              'PDF'}}
+            </label>
+            <label class="btn btn-outline-primary" ngbButtonLabel>
+              <input type="radio" ngbButton value="EXCEL"> {{(option == '2')? 'EXCEL' :
+              'EXCEL'}}
+            </label>
+          </div>
+
+        </div>
+        <div class="col-sm-4 mb-3">
+          <button class="btn btn-outline-primary" (click)="generar()">Generar Reporte</button>
+
+        </div>
+      </div>
+
+    </div>

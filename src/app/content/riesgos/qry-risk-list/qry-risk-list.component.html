@@ -1,0 +1,194 @@
+<div class="mat-sidenav-container" *ngIf="!bloquearboton">
+
+    <div class="centersteep">
+
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+
+                            <div class="card-header card-header-info card-header-icon">
+                                <div class="card-icon" style="width: 5%; height: 100%;">
+                                    <!-- <i class="material-icons" style="width: 10%;">reorder</i> -->
+
+                                </div>
+                                <form fxLayout="column" [formGroup]="objetivoForm">
+                                    <mat-form-field appearance="outline" fxFlex="100">
+                                        <mat-label>Elegir Estatus</mat-label>
+                                        <mat-select [(value)]="selectedestatus" formControlName="addobjetivo" required (selectionChange)="changeEstatus($event)">
+
+                                            <mat-option *ngFor="let obj of listEstatus" [value]="obj.nombre" [ngStyle]="{'background-color': obj.color }">
+                                                {{obj.descripcion}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error>Debe seleccionar el estatus</mat-error>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr style="height:3px;border:none;color:#969090;background-color:#969090;">
+
+                <!-- ********************FIN ENCABEZADO ****************************-->
+
+                <div class="row">
+
+                    <form>
+                        <div class="form-group form-inline">
+                            Busqueda:
+                            <input class="form-control ml-2" #search type="text" [formControl]="filter" (keyup.enter)="loadsearch(search.value)" />
+                        </div>
+                    </form>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                                <tr>
+
+                                    <th class="text-uppercase" scope="col" style="width: 10%;">Id</th>
+                                    <th class="text-uppercase" scope="col" style="width: 10%;">Secuencia</th>
+                                    <th class="text-uppercase" scope="col" style="width: 45%;">Evento</th>
+                                    <th class="text-uppercase" scope="col" style="width: 10%;">Estado</th>
+                                    <th class="text-uppercase" scope="col" style="width: 10%;">Riesgo</th>
+                                    <th class="text-uppercase" scope="col" style="width: 15%;">Seguridad Información
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let element of listrie6; index as i">
+
+                                    <td>{{element.id_riesgo}} </td>
+                                    <td>{{element.secuencia}}</td>
+
+                                    <td>{{element.evento}}</td>
+
+                                    <td>{{element.estado}}</td>
+                                    <td [ngStyle]="{ 'background-color': element.colorries}" style="color: black; font-weight: bold;text-align: center "> {{element.desc_riesgo}}
+                                    </td>
+                                    <td>
+                                        <span *ngIf="element.s_riesgo_sdi=='1'">
+                                            SI
+
+                                        </span>
+                                        <span *ngIf="element.s_riesgo_sdi=='0'">
+                                            NO
+
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="d-flex justify-content-between p-2">
+                            <ngb-pagination [collectionSize]="totalsize" [(page)]="page" [pageSize]="pageSize" (pageChange)="paginator($event)">
+                            </ngb-pagination>
+
+                            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="changePag(pageSize)">
+                                <option [ngValue]="5">5 registros</option>
+                                <option [ngValue]="10">10 registros</option>
+                                <option [ngValue]="20">20 registros</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <!---
+                        <div class="card-body table-responsive">
+                            <div class="example-header">
+                                <mat-form-field>
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar..">
+                                </mat-form-field>
+                            </div>
+                            <table mat-table [dataSource]="dataSource6" class="mat-elevation-z8" style="font-size: 14px;
+                                                                                                    min-height: 48px;
+                                                                                                    text-align: center;
+                                                                                                    border-right: 1px solid black;">
+
+                                
+                                <ng-container matColumnDef="edit">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <h5 style="text-align: center;">Seguridad Información</h5>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="mat-column">
+
+
+
+                                        <span *ngIf="element.s_riesgo_sdi=='1'">
+                                            SI
+
+                                        </span>
+                                        <span *ngIf="element.s_riesgo_sdi=='0'">
+                                            NO
+
+                                        </span>
+
+
+                                    </td>
+
+
+                                    <td mat-cell *matCellDef="let element" class="mat-column">
+
+                                        "{{element.s_riesgo_sdi}}==1?'SI':'NO'"
+
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Id">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <h5 style="text-align: center;">Id</h5>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="mat-column">
+                                        {{element.id_riesgo}} </td>
+                                </ng-container>
+
+                               
+                                <ng-container matColumnDef="Secuencia">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <h5 style="text-align: center;">Secuencia</h5>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="mat-column">
+                                        {{element.secuencia}} </td>
+                                </ng-container>
+
+                             
+                                <ng-container matColumnDef="Evento" style="width: 50px;">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <h5 style="text-align: center;">Evento</h5>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.evento}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Riesgo">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <h5 style="text-align: center;">Riesgo</h5>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="mat-column" [style.background-color]="element.colorries">
+                                        {{element.desc_riesgo}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Estado">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <h5 style="text-align: center;">Estado</h5>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.estado}} </td>
+                                </ng-container>
+
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                                </tr>
+
+
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                        </div>
+                    -->
+
+                </div>
+
+            </div>

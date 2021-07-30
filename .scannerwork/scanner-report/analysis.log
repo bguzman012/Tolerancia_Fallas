@@ -1,0 +1,44 @@
+SonarQube plugins:
+  - CSS Code Quality and Security 1.4.2.2002 (cssfamily)
+  - PL/SQL Code Quality and Security 3.6.1.3873 (plsql)
+  - Scala Code Quality and Security 1.8.3.2219 (sonarscala)
+  - C# Code Quality and Security 8.22.0.31243 (csharp)
+  - Vulnerability Analysis 8.9.0.11439 (security)
+  - Java Code Quality and Security 6.15.1.26025 (java)
+  - HTML Code Quality and Security 3.4.0.2754 (web)
+  - Flex Code Quality and Security 2.6.1.2564 (flex)
+  - XML Code Quality and Security 2.2.0.2973 (xml)
+  - VB.NET Code Quality and Security 8.22.0.31243 (vbnet)
+  - Swift Code Quality and Security 4.3.1.4892 (swift)
+  - CFamily Code Quality and Security 6.20.1.32841 (cpp)
+  - Python Code Quality and Security 3.4.1.8066 (python)
+  - Go Code Quality and Security 1.8.3.2219 (go)
+  - JaCoCo 1.1.1.1157 (jacoco)
+  - Kotlin Code Quality and Security 1.8.3.2219 (kotlin)
+  - T-SQL Code Quality and Security 1.5.1.4340 (tsql)
+  - JavaScript/TypeScript Code Quality and Security 7.4.4.15624 (javascript)
+  - Ruby Code Quality and Security 1.8.3.2219 (ruby)
+  - Vulnerability Rules for C# 8.9.0.11439 (securitycsharpfrontend)
+  - Vulnerability Rules for Java 8.9.0.11439 (securityjavafrontend)
+  - License for SonarLint 8.9.1.44547 (license)
+  - Vulnerability Rules for JS 8.9.0.11439 (securityjsfrontend)
+  - Vulnerability Rules for Python 8.9.0.11439 (securitypythonfrontend)
+  - PHP Code Quality and Security 3.17.0.7439 (php)
+  - ABAP Code Quality and Security 3.9.1.3127 (abap)
+  - Vulnerability Rules for PHP 8.9.0.11439 (securityphpfrontend)
+Global server settings:
+  - sonar.core.id=BF41A1F2-AXpdJVCpElvxVin1s6D2
+  - sonar.core.startTime=2021-06-30T08:55:44-0500
+  - sonar.dbcleaner.branchesToKeepWhenInactive=master,develop,trunk
+  - sonar.forceAuthentication=true
+Project server settings:
+Project scanner properties:
+  - sonar.host.url=http://localhost:9000
+  - sonar.login=******
+  - sonar.projectBaseDir=C:\Users\user\Desktop\MAO\PROYECTOS\COBRANZAS\FUENTES\CobranzasV1
+  - sonar.projectKey=Skillcob
+  - sonar.scanner.app=ScannerCLI
+  - sonar.scanner.appVersion=4.6.2.2472
+  - sonar.sourceEncoding=windows-1252
+  - sonar.sources=.
+  - sonar.working.directory=C:\Users\user\Desktop\MAO\PROYECTOS\COBRANZAS\FUENTES\CobranzasV1\.scannerwork

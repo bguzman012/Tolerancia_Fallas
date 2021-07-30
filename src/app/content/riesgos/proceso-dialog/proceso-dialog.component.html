@@ -1,0 +1,62 @@
+<div class="modal-header">
+    <h4 *ngIf="!editar" class="modal-title" id="modal-basic-title">Nuevo Proceso</h4>
+
+    <h4 *ngIf="editar" class="modal-title" id="modal-basic-title">Editar Proceso</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+</div>
+<div>
+
+    <gx-card card-title="">
+
+        <form [formGroup]="personForm" class="needs-validation" (submit)="saveProceso()" novalidate>
+            <div class="form-row">
+                <div class="col-sm-6 mb-3">
+                    <label for="name">Los campos marcados con (<span class="text-danger">*</span>) son
+                        obligatorios:</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Codigo <span class="text-danger">*</span></label>
+
+                    <input formControlName="iDocumento" placeholder="Ej. UC" matInput class="form-control" required style="color: black;  height: 47px;" />
+
+
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Nombre <span class="text-danger">*</span></label>
+
+                    <input formControlName="iNombre" matInput class="form-control" placeholder="Ej. Proceso Ejemplo" aria-label="Checkbox for following text input" required style="color: black;  height: 47px;" />
+
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6 mb-3">
+                    <label for="validationDefault02">Departamento <span class="text-danger">*</span></label>
+
+
+                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [ngModelOptions]="{standalone: true}" placeholder="Seleccione departamento" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" required [style]="{'width': '100%'}" field="nombre_departamento"
+                        [dropdown]="true">
+                        <ng-template let-country pTemplate="item">
+                            <div class="country-item">
+
+                                <div>{{country.nombre_departamento}}</div>
+                            </div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <small *ngIf="!process_inserted" class="error-message">Campo Requerido</small>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button *ngIf="!editar" class="btn btn-primary" type="submit">Guardar Proceso </button>
+                <button *ngIf="editar" class="btn btn-primary" type="submit">Editar Proceso </button>
+            </div>
+        </form>
+    </gx-card>
+</div>

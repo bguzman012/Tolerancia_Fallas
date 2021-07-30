@@ -1,0 +1,24 @@
+<div class="overlay" *ngIf="loading">
+    <span class="sr-only">Generando Reporte...</span>
+
+    <div class="spinner ">
+        <div class="spinner-grow text-primary" role="status">
+
+
+        </div>
+    </div>
+</div>
+<div class="mat-sidenav-container">
+
+    <div class="centersteep">
+        <button mat-raised-button type="button" style="background-color:#0064bf; color: white;" (click)="descargarreporte()">
+          <mat-icon class="s-56">assignment</mat-icon> Descargar Matriz
+      </button>
+
+
+        <button mat-raised-button type="button" style="background-color:#0064bf; color: white;" (click)="descargarreportemapa()">
+          <mat-icon class="s-56">assignment</mat-icon> Descargar Mapa Calor
+      </button>
+    </div>
+
+</div>

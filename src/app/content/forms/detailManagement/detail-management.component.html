@@ -1,0 +1,267 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="closeModal('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<div class="card-header card-nav bg-transparent border-bottom d-sm-flex justify-content-sm-between">
+    <h3 class="mb-2 mb-sm-n5">Detalle de la Gestión</h3>
+
+    <ul class="card-header-links nav nav-underline" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">Información General</a>
+
+        </li>
+
+    </ul>
+
+</div>
+<!-- /card header -->
+
+<!-- Card Body -->
+<div class="card-body pb-2">
+
+    <!-- Tab Content-->
+    <div class="tab-content mt-5">
+
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+
+            <!-- Grid -->
+            <div class="row">
+
+                <div class="col-xl-5 order-xl-1">
+                    <!-- Card -->
+                    <!--    <profile-about [aboutProfile]="data.about_user"></profile-about> -->
+                    <!-- /card -->
+
+                    <!-- Card -->
+                    <gx-card>
+                       
+                        <ul class="dt-list dt-list-col-6">
+                            <!-- List Item -->
+                            <li class="dt-list__item">
+                                <!-- Media -->
+                                <gx-media-icon-card label="Fecha gestión: ">
+                                    <gx-icon name="calendar" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                    <p class="h5 mb-0" text>{{this.dataModal.data.fecha_gestion }}</p>
+                                </gx-media-icon-card>
+                                <!-- /media -->
+                            </li>
+                            <!-- /list item -->
+                
+                            <!-- List Item -->
+                            <li class="dt-list__item">
+                                <!-- Media -->
+                                <gx-media-icon-card label="Tipo de gestión">
+                                    <gx-icon name="spam" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                    <p class="h5 mb-0" text>{{this.dataModal.data.tipo_gestion}}</p>
+                                </gx-media-icon-card>
+                                <!-- /media -->
+                            </li>
+                            <li class="dt-list__item">
+                                <!-- Media -->
+                                <gx-media-icon-card label="Usuario Gestión">
+                                    <gx-icon name="users2" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                    <p class="h5 mb-0" text>{{this.dataModal.data.usuario_gestion}}</p>
+                                </gx-media-icon-card>
+                                <!-- /media -->
+                            </li>
+                            <li class="dt-list__item">
+                                <!-- Media -->
+                                <gx-media-icon-card label="Coordenadas">
+                                    <gx-icon name="maps" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                    <p class="h5 mb-0" text>{{this.dataModal.data.latitud}} , {{this.dataModal.data.longuitud}} </p>
+                                </gx-media-icon-card>
+                                <!-- /media -->
+                            </li>
+                            <!-- /list item -->
+                
+                            <!-- List Item -->
+                           <!--  <li class="dt-list__item">
+                              
+                                <gx-media-icon-card label="Solución">
+                                    <gx-icon name="double-check-circle" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                    <p class="h5 mb-0" text>Acuerdo de Pago</p>
+                                </gx-media-icon-card>
+                            
+                            </li> -->
+                            <!-- /list item -->
+                
+                            <!-- List Item -->
+                            <li class="dt-list__item" *ngIf="dataModal.data.id_tipo_gestion=='TEL'">
+                                <!-- Media -->
+                                <gx-media-icon-card label="Responde Llamada" >
+                                    <gx-icon name="phone" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                    <p class="h5 mb-0" text>{{this.dataModal.data.responde}} </p>
+                                </gx-media-icon-card>
+                                <!-- /media -->
+                            </li>
+                            <li class="dt-list__item"  *ngIf="dataModal.data.id_tipo_gestion=='PRE'">
+                                <!-- Media -->
+                                <gx-media-icon-card label="Localizado"  >
+                                    <gx-icon name="maps" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                    <p class="h5 mb-0" text>{{this.dataModal.data.localizado}} </p>
+                                </gx-media-icon-card>
+                                <!-- /media -->
+                            </li>
+                         
+                        </ul>
+                    
+                    </gx-card>
+                    <!-- /card -->
+
+                  
+                </div>
+
+                <!-- Grid Item -->
+                <div class="col-xl-7 order-xl-2">
+
+                    <!-- Grid -->
+                    <div class="row">
+                        <div class="col-xl-12 col-md-6 col-12 order-xl-1">
+                            <!-- Card -->
+                            <gx-card [fullHeight]="true" card-title="Observaciones" header-class="pt-6">
+                                    <p>
+                                        {{this.dataModal.data.observacion}}
+                                    </p>
+                                   
+                            </gx-card>
+                            <!-- /card -->
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="row" *ngIf="dataModal.data.tipo_solucion">
+                <div class="col-xl-12 col-md-6 col-12 order-xl-1">
+                    <!-- Card -->
+                    <gx-card [fullHeight]="true" card-title="Actividad o solución" header-class="pt-6">
+                          <p>El cliente ofrece la siguiente solución:</p>
+                            <ul class="dt-list dt-list-col-6">
+                                <!-- List Item -->
+                                <li class="dt-list__item">
+                                    <!-- Media -->
+                                    <gx-media-icon-card label="Tipo solución: ">
+                                        <gx-icon name="circle-check" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                        <p class="h5 mb-0" text>{{this.dataModal.data.tipo_solucion}}</p>
+                                    </gx-media-icon-card>
+                                    <!-- /media -->
+                                </li>
+                             
+                            </ul>
+                             <div *ngIf="dataModal.data.id_tipo_solucion=='ADP'">
+                            <label for="">Fecha:</label>
+                            <p class="h5 mb-0" text>{{this.dataModal.data.fecha_compromiso}}</p>
+                            <label for="">Monto:</label>
+                            <p class="h5 mb-0" text>$ {{this.dataModal.data.monto_solucion}}</p>
+                        </div>
+
+                        <div *ngIf="dataModal.data.id_tipo_solucion=='COB'">
+                            
+                            <label for="">Monto:</label>
+                            <p class="h5 mb-0" text>$ {{this.dataModal.data.monto_solucion}}</p>
+                        </div>
+                    </gx-card>
+                    <!-- /card -->
+                </div>
+                <!-- Grid Item -->
+                
+                <!-- /grid item -->
+
+                <!-- Grid Item -->
+                
+                <!-- /grid item -->
+
+            </div>
+
+
+            <div class="row">
+
+            <div class="col-xl-12 col-md-6 col-12 order-xl-2" *ngIf="mostrarfotos">
+                <!-- Card -->
+                <gx-card card-title="Documentos" [fullHeight]="true">
+                    <ul class="dt-list dt-list-col-2 mb-4">
+            <!-- List Item -->
+            <li class="dt-list__item text-center" *ngFor="let attachment of listafotos.foto; let last=last">
+                <a href="{{attachment.path}}" target="_blank" class="d-block" >
+                    <img src="{{attachment.path}}?" alt="{{attachment.path}}"  onerror="this.src='https://firebasestorage.googleapis.com/v0/b/skillsoft-ea998.appspot.com/o/uploads%2Fdefualt.jpg?alt=media&token=5e601670-e5d3-40d7-8b13-6ff3bd764c7f'" class="img-fluid rounded" style="max-width: 100px;">
+                  <!--   <span class="count-number display-4" *ngIf="last">+4</span> -->
+                </a>
+            </li>
+            <!-- /list item -->
+        </ul>
+                </gx-card>
+                <!-- /card -->
+            </div>
+
+            <div class="col-xl-12 col-md-6 col-12 order-xl-2" *ngIf="mostrarmail">
+                <!-- Card -->
+                <gx-card card-title="Correo Enviado" [fullHeight]="true">
+                  
+                            <ul class="dt-list dt-list-col-6">
+                                <li class="dt-list__item">
+                                    <gx-media-icon-card label="Asunto: ">
+                                        <gx-icon name="mail" size="4x" class="mr-5 align-self-center text-sky-blue" icon></gx-icon>
+                                        <p class="h5 mb-0" text>{{listafotos.email?listafotos.email[0].asunto:''}}</p>
+                                    </gx-media-icon-card>
+                                </li>
+                             
+                            </ul>
+                            <label for="">Destinatario:</label>
+                            <p class="h5 mb-0" text>{{listafotos.email?listafotos.email[0].email:''}}</p>
+                            <label for="">Mensaje:</label>
+                            <section class="content"  [innerHTML]="html"></section>
+                </gx-card>
+                <!-- /card -->
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xl-12 col-md-6 col-12 order-xl-2" *ngIf="dataModal.data.latitud">
+                <!-- Card -->
+                <gx-card card-title="Ubicación" [fullHeight]="true">
+ 
+                    <div class=" col-sm-12 mb-6 embed-responsive embed-responsive-21by9">
+                        <agm-map class="embed-responsive-item border" [latitude]="lat" [longitude]="lng" [zoom]="zoom"
+                          [disableDefaultUI]="false" [zoomControl]="false" >
+                  
+                          <agm-marker *ngFor="let m of markers; let i = index" 
+                            [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" markerDraggable="false"
+                            >
+                  
+                            <agm-info-window>
+                              <strong>InfoWindow content</strong>
+                            </agm-info-window>
+                  
+                          </agm-marker>
+                  
+                          
+                        </agm-map>
+                      </div>
+
+                </gx-card>
+                <!-- /card -->
+            </div>
+            <br>
+            <br><br>
+            
+        </div>
+
+            <!-- /grid -->
+
+        </div>
+        <!-- /profile content -->
+
+
+
+
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<!-- Card Header -->
+<card-header class="mb-5" card-title="Ingreso y mantenimiento de productos">
+  <!-- Card Tools -->
+  <card-tool>
+    <button
+      type="button"
+      class="btn btn-success btn-xs"
+      (click)="openDialog(null)"
+    >
+      Nuevo <gx-icon name="circle-add-o" size="1x"></gx-icon>
+    </button>
+  </card-tool>
+  <!-- /card tools -->
+</card-header>
+<!-- /card header -->
+
+<!-- Card Body -->
+<card-body class="p-0">
+  <!-- Widget -->
+  <div
+    class="
+      dt-widget
+      dt-widget-hl-item
+      dt-widget-hl-item-space
+      dt-widget-mb-item
+      dt-widget-hover-bg
+    "
+  >
+    <form>
+      <div class="form-group form-inline">
+        Busqueda:
+        <input
+          class="form-control ml-2"
+          #search
+          type="text"
+          [formControl]="filter"
+          (keyup.enter)="loadsearch(search.value)"
+        />
+      </div>
+    </form>
+    <div class="table-responsive">
+      <table class="table table-bordered mb-0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th class="text-uppercase" scope="col">Cod principal</th>
+            <th class="text-uppercase" scope="col">Cod auxiliar</th>
+            <th class="text-uppercase" scope="col">Descripción</th>
+            <th class="text-uppercase" scope="col">Precio unitario</th>
+            <th class="text-uppercase" scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listProducts; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ item.codigo_principal }}</td>
+            <td>{{ item.codigo_auxiliar }}</td>
+            <td>{{ item.descripcion }}</td>
+            <td>{{ item.precio_unitario }}</td>
+            <td>
+              <div class="hide-content">
+                <!-- Action Button Group -->
+                <div class="action-btn-group">
+                  <button class="btn btn-default text-success dt-fab-btn" (click)="openDialog(item)">
+                    <gx-icon name="editors" size="1x"></gx-icon>
+                  </button>
+                  <button class="btn btn-default text-danger dt-fab-btn" (click)="deleteItem(item)">
+                    <gx-icon name="trash" size="1x"></gx-icon>
+                  </button>
+                </div>
+                <!-- /action button group -->
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination
+          [collectionSize]="totalsize"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          (pageChange)="paginator($event)"
+        >
+        </ngb-pagination>
+
+        <select
+          class="custom-select"
+          style="width: auto"
+          [(ngModel)]="pageSize"
+          (change)="changePag(pageSize)"
+        >
+          <option [ngValue]="5">5 registros</option>
+          <option [ngValue]="10">10 registros</option>
+          <option [ngValue]="20">20 registros</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!-- /widget -->
+</card-body>
+<!-- /card body -->
+
+
